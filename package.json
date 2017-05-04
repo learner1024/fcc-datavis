@@ -1,0 +1,29 @@
+{
+  "name": "fcc-datavis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/learner1024/fcc-datavis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/learner1024/fcc-datavis/issues"
+  },
+  "homepage": "https://github.com/learner1024/fcc-datavis#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^2.4.1"
+  },
+  "dependencies": {
+    "react": "^15.5.4"
+  }
+}
