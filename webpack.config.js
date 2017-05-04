@@ -1,13 +1,22 @@
 const path = require('path');
-module.exports = {
-    entry: './src/md-previewer/app.js',
-    module: {
-        rules: [
-            {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/}
-        ]
-    },
-    output: {
-        path: path.resolve(__dirname, 'dist/js'),
-        filename: 'md-previewer-bundle.js'
+
+let microApps = [
+    "camper-leaderboard", "md-previewer"
+];
+
+let configs = microApps.map(microApp => {
+    return {
+        entry: `./src/${microApp}/app.js`,
+        module: {
+            rules: [
+                {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/}
+            ]
+        },
+        output: {
+            path: path.resolve(__dirname, 'dist'),
+            filename: `${microApp}-bndl.js`
+        }
     }
-};
+});
+
+module.exports = configs;
