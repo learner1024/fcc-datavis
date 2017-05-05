@@ -1,5 +1,5 @@
-const MarkdownPreviewer = () => {
+import MarkdownPreviewer from './components/md-previewer.jsx';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-};
-
-export default MarkdownPreviewer;
+ReactDOM.render(<MarkdownPreviewer />, document.querySelector("#app1Container"));

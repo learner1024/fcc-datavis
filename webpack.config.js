@@ -1,12 +1,11 @@
 const path = require('path');
+const webpack = require('webpack');
 
-let microApps = [
-    "camper-leaderboard", "md-previewer"
-];
-
-let configs = microApps.map(microApp => {
-    return {
-        entry: `./src/${microApp}/app.js`,
+module.exports = {
+        entry: {
+            apps: [ "./src/camper-leaderboard/app.js", "./src/md-previewer/app.js"],
+            fx: ['react', 'react-dom']
+        },
         module: {
             rules: [
                 {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/}
@@ -14,9 +13,11 @@ let configs = microApps.map(microApp => {
         },
         output: {
             path: path.resolve(__dirname, 'dist'),
-            filename: `${microApp}-bndl.js`
-        }
-    }
-});
-
-module.exports = configs;
+            filename: "[name].bundle.js"
+        },
+        plugins: [
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'fx'
+            })
+        ]
+    };
