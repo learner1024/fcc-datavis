@@ -52,7 +52,7 @@ var MarkdownPreviewer = function MarkdownPreviewer() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'h1',
         null,
-        'Hello, from Markdown Previewer!'
+        'Hello, from MarkdownPreviewer!'
     );
 };
 
