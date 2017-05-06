@@ -2,7 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
-module.exports = {
+module.exports = (env) => {
+    const wpConfig = {
         context: path.resolve(__dirname, 'src'),
         entry: {
             apps: [ "./camper-leaderboard/app.js", "./md-previewer/app.js"],
@@ -15,7 +16,7 @@ module.exports = {
         },
         output: {
             path: path.resolve(__dirname, 'dist'),
-            publicPath: 'https://learner1024.github.io/fcc-datavis/dist',
+            publicPath: env == "production" ? 'https://learner1024.github.io/fcc-datavis/dist' : "",
             filename: "[name].bundle.js"
         },
         plugins: [
@@ -31,3 +32,5 @@ module.exports = {
             historyApiFallback: true
         }
     };
+    return wpConfig;
+} 
