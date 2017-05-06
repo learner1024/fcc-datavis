@@ -15,7 +15,7 @@ module.exports = {
         },
         output: {
             path: path.resolve(__dirname, 'dist'),
-            publicPath: '/dist',
+            publicPath: 'https://learner1024.github.io/fcc-datavis/dist',
             filename: "[name].bundle.js"
         },
         plugins: [
