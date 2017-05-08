@@ -11,6 +11,18 @@ const PATHS = {
     prod: 'https://learner1024.github.io/fcc-datavis/'
 };
 
+const commonPlugins = [
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'fx'
+    }),
+    new HtmlWebpackPlugin({
+        template: 'landing/views/index.pug',
+        filename: path.join(PATHS.root, 'index.html'),
+        alwaysWriteToDisk: true
+    })
+];
+
+
 const commonConfig = {
     context: PATHS.src,
     entry: {
@@ -26,41 +38,38 @@ const commonConfig = {
     output: {
         path: PATHS.dist,
         filename: "[name].bundle.js"
-    },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'fx'
-        }),
-        new HtmlWebpackPlugin({
-            template: 'landing/views/index.pug',
-            filename: path.join(PATHS.root, 'index.html'),
-            alwaysWriteToDisk: true
-        }),
-        new HtmlWebpackHarddiskPlugin()
-    ]
-    
-};
-
-const devConfig = {
-    devServer: {
-        publicPath: "/dist",
-        historyApiFallback: true,
-        overlay: true
     }
     
 };
 
-const prodConfig = {
-    output: {
-        publicPath: PATHS.prod + 'dist'
-    }    
+const devConfig = () => {
+    var devPlugins = [new HtmlWebpackHarddiskPlugin()];
+    return {
+        devServer: {
+            publicPath: "/dist",
+            historyApiFallback: true,
+            overlay: true,
+            hotOnly: true
+        },
+        plugins : commonPlugins.concat(devPlugins)
+        
+    };
+}
+
+const prodConfig = () => {
+    return {
+        output: {
+            publicPath: PATHS.prod + 'dist'
+        },
+        plugins: commonPlugins   
+    }
 }
 
 module.exports = (env) => {    
     if(env == "production"){
-        return webpackMerge(commonConfig, prodConfig);
+        return webpackMerge(commonConfig, prodConfig());
     }
     else if (env = "development"){
-        return webpackMerge(commonConfig, devConfig);
+        return webpackMerge(commonConfig, devConfig());
     }
 } 
