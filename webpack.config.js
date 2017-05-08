@@ -40,6 +40,7 @@ const commonConfig = {
             {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/,  include: PATHS.src},
             {test: /\.(pug|jade)$/, use: 'pug-loader', exclude: /node_modules/,  include: PATHS.src},
             {test: /\.scss$/,use: extractSass.extract({use: ['css-loader','sass-loader'], fallback: 'style-loader'})},
+            {test: /\.css$/,use: extractSass.extract({ use: ['css-loader'] })},
         ],
     },
     output: {
