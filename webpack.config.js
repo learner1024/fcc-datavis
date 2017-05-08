@@ -17,6 +17,15 @@ const commonConfig = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: "[name].bundle.js"
+    }
+    
+};
+
+const devConfig = {
+    devServer: {
+        publicPath: "/",
+        historyApiFallback: true,
+        overlay: true
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
@@ -26,20 +35,22 @@ const commonConfig = {
             template: '!!pug-loader!src/landing/views/index.pug',
             filename: 'index.html'
         })
-    ]    
-};
-
-const devConfig = {
-    devServer: {
-        publicPath: "/dist/",
-        historyApiFallback: true
-    }
+    ]
 };
 
 const prodConfig = {
     output: {
         publicPath: 'https://learner1024.github.io/fcc-datavis/dist'
-    }
+    },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'fx'
+        }),
+        new HtmlWebpackPlugin({
+            template: '!!pug-loader!src/landing/views/index.pug',
+            filename: path.join(__dirname, 'index.html')
+        })
+    ]
 }
 
 module.exports = (env) => {    
