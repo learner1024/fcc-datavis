@@ -1,12 +1,14 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 const PATHS = {
     root: path.resolve(__dirname),
     src: path.resolve(__dirname, 'src'),
-    dist: path.resolve(__dirname, 'dist')
+    dist: path.resolve(__dirname, 'dist'),
+    prod: 'https://learner1024.github.io/fcc-datavis/'
 };
 
 const commonConfig = {
@@ -24,40 +26,34 @@ const commonConfig = {
     output: {
         path: PATHS.dist,
         filename: "[name].bundle.js"
-    }
+    },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'fx'
+        }),
+        new HtmlWebpackPlugin({
+            template: 'landing/views/index.pug',
+            filename: path.join(PATHS.root, 'index.html'),
+            alwaysWriteToDisk: true
+        }),
+        new HtmlWebpackHarddiskPlugin()
+    ]
     
 };
 
 const devConfig = {
     devServer: {
-        publicPath: "/",
+        publicPath: "/dist",
         historyApiFallback: true,
         overlay: true
-    },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'fx'
-        }),
-        new HtmlWebpackPlugin({
-            template: 'landing/views/index.pug',
-            filename: 'index.html'
-        })
-    ]
+    }
+    
 };
 
 const prodConfig = {
     output: {
-        publicPath: 'https://learner1024.github.io/fcc-datavis/dist'
-    },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'fx'
-        }),
-        new HtmlWebpackPlugin({
-            template: 'landing/views/index.pug',
-            filename: path.join(PATHS.root, 'index.html')
-        })
-    ]
+        publicPath: PATHS.prod + 'dist'
+    }    
 }
 
 module.exports = (env) => {    
