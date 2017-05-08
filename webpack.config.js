@@ -24,13 +24,14 @@ const commonConfig = {
         }),
         new HtmlWebpackPlugin({
             template: '!!pug-loader!src/landing/views/index.pug',
-            filename: path.join(__dirname, 'index.html')
+            filename: 'index.html'
         })
     ]    
 };
 
 const devConfig = {
     devServer: {
+        publicPath: "/dist/",
         historyApiFallback: true
     }
 };
