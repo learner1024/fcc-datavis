@@ -3,19 +3,26 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 
+const PATHS = {
+    root: path.resolve(__dirname),
+    src: path.resolve(__dirname, 'src'),
+    dist: path.resolve(__dirname, 'dist')
+};
+
 const commonConfig = {
-    context: path.resolve(__dirname, 'src'),
+    context: PATHS.src,
     entry: {
         apps: [ "./camper-leaderboard/app.js", "./md-previewer/app.js"],
         fx: ['react', 'react-dom']
     },
     module: {
         rules: [
-            {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/,  include: path.resolve(__dirname, 'src')}
+            {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/,  include: PATHS.src},
+            {test: /\.(pug|jade)$/, use: 'pug-loader', exclude: /node_modules/,  include: PATHS.src}
         ]
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: PATHS.dist,
         filename: "[name].bundle.js"
     }
     
@@ -32,7 +39,7 @@ const devConfig = {
             name: 'fx'
         }),
         new HtmlWebpackPlugin({
-            template: '!!pug-loader!src/landing/views/index.pug',
+            template: 'landing/views/index.pug',
             filename: 'index.html'
         })
     ]
@@ -47,8 +54,8 @@ const prodConfig = {
             name: 'fx'
         }),
         new HtmlWebpackPlugin({
-            template: '!!pug-loader!src/landing/views/index.pug',
-            filename: path.join(__dirname, 'index.html')
+            template: 'landing/views/index.pug',
+            filename: path.join(PATHS.root, 'index.html')
         })
     ]
 }
