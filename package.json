@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint:es": "nodemon --watch .eslintrc.js --exec \"eslint src/ webpack.config.js --cache --fix\"",
     "build": "webpack --env production",
     "start": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --env development\"",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,6 +24,8 @@
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.4.0",
     "babel-preset-react": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.0",
     "html-webpack-harddisk-plugin": "^0.1.0",
     "html-webpack-plugin": "^2.28.0",
     "nodemon": "^1.11.0",

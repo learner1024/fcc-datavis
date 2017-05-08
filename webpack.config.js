@@ -8,37 +8,37 @@ const PATHS = {
     root: path.resolve(__dirname),
     src: path.resolve(__dirname, 'src'),
     dist: path.resolve(__dirname, 'dist'),
-    prod: 'https://learner1024.github.io/fcc-datavis/'
+    prod: 'https://learner1024.github.io/fcc-datavis/',
 };
 
 const commonPlugins = [
     new webpack.optimize.CommonsChunkPlugin({
-        name: 'fx'
+        name: 'fx',
     }),
     new HtmlWebpackPlugin({
         template: 'landing/views/index.pug',
         filename: path.join(PATHS.root, 'index.html'),
-        alwaysWriteToDisk: true
-    })
+        alwaysWriteToDisk: true,
+    }),
 ];
 
 
 const commonConfig = {
     context: PATHS.src,
     entry: {
-        apps: [ "./camper-leaderboard/app.js", "./md-previewer/app.js"],
-        fx: ['react', 'react-dom']
+        apps: [ './camper-leaderboard/app.js', './md-previewer/app.js'],
+        fx: ['react', 'react-dom'],
     },
     module: {
         rules: [
             {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/,  include: PATHS.src},
-            {test: /\.(pug|jade)$/, use: 'pug-loader', exclude: /node_modules/,  include: PATHS.src}
-        ]
+            {test: /\.(pug|jade)$/, use: 'pug-loader', exclude: /node_modules/,  include: PATHS.src},
+        ],
     },
     output: {
         path: PATHS.dist,
-        filename: "[name].bundle.js"
-    }
+        filename: '[name].bundle.js',
+    },
     
 };
 
@@ -46,30 +46,30 @@ const devConfig = () => {
     var devPlugins = [new HtmlWebpackHarddiskPlugin()];
     return {
         devServer: {
-            publicPath: "/dist",
+            publicPath: '/dist',
             historyApiFallback: true,
             overlay: true,
-            hotOnly: true
+            hotOnly: true,
         },
-        plugins : commonPlugins.concat(devPlugins)
+        plugins : commonPlugins.concat(devPlugins),
         
     };
-}
+};
 
 const prodConfig = () => {
     return {
         output: {
-            publicPath: PATHS.prod + 'dist'
+            publicPath: PATHS.prod + 'dist',
         },
-        plugins: commonPlugins   
-    }
-}
+        plugins: commonPlugins,   
+    };
+};
 
 module.exports = (env) => {    
-    if(env == "production"){
+    if(env == 'production'){
         return webpackMerge(commonConfig, prodConfig());
     }
-    else if (env = "development"){
+    else if (env == 'development'){
         return webpackMerge(commonConfig, devConfig());
     }
-} 
+}; 

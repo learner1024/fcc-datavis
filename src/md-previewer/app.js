@@ -2,4 +2,4 @@ import MarkdownPreviewer from './components/md-previewer.jsx';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(<MarkdownPreviewer />, document.querySelector("#app1Container"));
+ReactDOM.render(<MarkdownPreviewer />, document.querySelector('#app1Container'));
