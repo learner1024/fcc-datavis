@@ -1,3 +1,4 @@
+import './styles/style1.scss';
 import MarkdownPreviewer from './components/md-previewer.jsx';
 import React from 'react';
 import ReactDOM from 'react-dom';
