@@ -33,7 +33,7 @@ const commonConfig = {
     context: PATHS.src,
     entry: {
         apps: ['./landing/app.js', './camper-leaderboard/app.js', './md-previewer/app.js'],
-        fx: ['react', 'react-dom'],
+        fx: ['react', 'react-dom', 'remarkable'],
     },
     module: {
         rules: [

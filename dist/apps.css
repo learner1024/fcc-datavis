@@ -9318,3 +9318,9 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
   }
 }body {
   background-color: cornsilk; }
+div.col {
+  border: 1px solid black; }
+  div.col .inpt, div.col .outpt {
+    margin: 5%;
+    width: 90%;
+    height: 50vh; }
