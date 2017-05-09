@@ -13,15 +13,130 @@ webpackJsonp([0],{
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_camper_leaderboard_jsx__ = __webpack_require__("./camper-leaderboard/components/camper-leaderboard.jsx");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__("../node_modules/react/react.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_camper_leaderboard_scss__ = __webpack_require__("./camper-leaderboard/styles/camper-leaderboard.scss");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_camper_leaderboard_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__styles_camper_leaderboard_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_react_dom__);
 
 
 
 
-__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__components_camper_leaderboard_jsx__["a" /* default */], null), document.querySelector('#app1Container'));
+
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__components_camper_leaderboard_jsx__["a" /* default */], null), document.querySelector('#app2Container'));
+
+/***/ }),
+
+/***/ "./camper-leaderboard/components/camper-leaderboard-table-row.jsx":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+var CamperLeaderboardTableRow = function CamperLeaderboardTableRow(_ref) {
+    var leader = _ref.leader;
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'tr',
+        null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            leader.indx
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'rounded', src: leader.imgUrl }),
+            leader.userName
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            leader.allTimePoints
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            leader.recentPoints
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'td',
+            null,
+            leader.lastUpdate
+        )
+    );
+};
+/* harmony default export */ __webpack_exports__["a"] = (CamperLeaderboardTableRow);
+
+/***/ }),
+
+/***/ "./camper-leaderboard/components/camper-leaderboard-table.jsx":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__camper_leaderboard_table_row_jsx__ = __webpack_require__("./camper-leaderboard/components/camper-leaderboard-table-row.jsx");
+
+
+
+var CamperLeaderboardTable = function CamperLeaderboardTable(props) {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'table',
+        { className: 'table table-striped table-bordered' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'thead',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'tr',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    '#'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    'Leader'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    'All time brownie points'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    'Recent brownie points'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'th',
+                    null,
+                    'last updated'
+                )
+            )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'tbody',
+            null,
+            props.leaders.map(function (l, i) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__camper_leaderboard_table_row_jsx__["a" /* default */], { key: l.username, leader: {
+                        indx: i + 1,
+                        imgUrl: l.img,
+                        userName: l.username,
+                        allTimePoints: l.alltime,
+                        recentPoints: l.recent,
+                        lastUpdate: l.lastUpdate
+                    } });
+            })
+        )
+    );
+};
+/* harmony default export */ __webpack_exports__["a"] = (CamperLeaderboardTable);
 
 /***/ }),
 
@@ -31,6 +146,7 @@ __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__camper_leaderboard_table_jsx__ = __webpack_require__("./camper-leaderboard/components/camper-leaderboard-table.jsx");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41,19 +157,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var CamperLeaderboard = function (_Component) {
     _inherits(CamperLeaderboard, _Component);
 
     _createClass(CamperLeaderboard, [{
         key: 'refreshData',
         value: function refreshData() {
-            var topRecent = [];
-            var topAllTime = [];
+            var _this2 = this;
 
             fetch('https://fcctop100.herokuapp.com/api/fccusers/top/recent').then(function (response) {
                 return response.json();
             }).then(function (json) {
-                console.log('recent : parsed json', json);
+                _this2.setState({
+                    topRecent: json
+                });
             }).catch(function (ex) {
                 console.log('parsing failed', ex);
             });
@@ -61,7 +179,9 @@ var CamperLeaderboard = function (_Component) {
             fetch('https://fcctop100.herokuapp.com/api/fccusers/top/alltime').then(function (response) {
                 return response.json();
             }).then(function (json) {
-                console.log('alltime parsed json', json);
+                _this2.setState({
+                    topAllTime: json
+                });
             }).catch(function (ex) {
                 console.log('parsing failed', ex);
             });
@@ -73,6 +193,10 @@ var CamperLeaderboard = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (CamperLeaderboard.__proto__ || Object.getPrototypeOf(CamperLeaderboard)).call(this, props));
 
+        _this.state = {
+            topRecent: [],
+            topAllTime: []
+        };
         _this.refreshData();
         return _this;
     }
@@ -81,9 +205,30 @@ var CamperLeaderboard = function (_Component) {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'h1',
+                'div',
                 null,
-                'FreeCodeCamp : Camper Leaderboard'
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col text-center' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h1',
+                            null,
+                            'FreeCodeCamp - Camper Leaderboard'
+                        )
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__camper_leaderboard_table_jsx__["a" /* default */], { leaders: this.state.topRecent })
+                    )
+                )
             );
         }
     }]);
@@ -92,6 +237,13 @@ var CamperLeaderboard = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (CamperLeaderboard);
+
+/***/ }),
+
+/***/ "./camper-leaderboard/styles/camper-leaderboard.scss":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
@@ -147,7 +299,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-// ReactDOM.render(<MarkdownPreviewer />, document.querySelector('#app1Container'));
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_md_previewer_jsx__["a" /* default */], null), document.querySelector('#app1Container'));
 
 /***/ }),
 
@@ -241,7 +393,7 @@ var MarkdownPreviewer = function (_Component) {
     return MarkdownPreviewer;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (MarkdownPreviewer);
+/* harmony default export */ __webpack_exports__["a"] = (MarkdownPreviewer);
 
 /***/ }),
 
