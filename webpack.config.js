@@ -29,7 +29,7 @@ const commonPlugins = [
     new webpack.ProvidePlugin({
         $: 'jquery/dist/jquery.slim.min.js',
         jQuery: 'jquery/dist/jquery.slim.min.js',
-        Tether: 'tether/dist/js/tether.min.js'
+        Tether: 'tether/dist/js/tether.min.js',
     }),
     new webpack.NamedModulesPlugin(),
 ];
