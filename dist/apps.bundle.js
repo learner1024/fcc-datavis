@@ -82,7 +82,6 @@ var CamperLeaderboardTableRow = function CamperLeaderboardTableRow(_ref) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__camper_leaderboard_table_row_jsx__ = __webpack_require__("./camper-leaderboard/components/camper-leaderboard-table-row.jsx");
 
 
-
 var CamperLeaderboardTable = function CamperLeaderboardTable(props) {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'table',
@@ -106,12 +105,20 @@ var CamperLeaderboardTable = function CamperLeaderboardTable(props) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'th',
                     null,
-                    'All time brownie points'
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { onClick: props.onTopAllTimeCommand },
+                        'All time brownie points'
+                    )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'th',
                     null,
-                    'Recent brownie points'
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { onClick: props.onTopRecentCommand },
+                        'Recent brownie points'
+                    )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'th',
@@ -162,25 +169,30 @@ var CamperLeaderboard = function (_Component) {
     _inherits(CamperLeaderboard, _Component);
 
     _createClass(CamperLeaderboard, [{
-        key: 'refreshData',
-        value: function refreshData() {
+        key: 'retrieveAlltimeData',
+        value: function retrieveAlltimeData() {
             var _this2 = this;
-
-            fetch('https://fcctop100.herokuapp.com/api/fccusers/top/recent').then(function (response) {
-                return response.json();
-            }).then(function (json) {
-                _this2.setState({
-                    topRecent: json
-                });
-            }).catch(function (ex) {
-                console.log('parsing failed', ex);
-            });
 
             fetch('https://fcctop100.herokuapp.com/api/fccusers/top/alltime').then(function (response) {
                 return response.json();
             }).then(function (json) {
                 _this2.setState({
-                    topAllTime: json
+                    data: json
+                });
+            }).catch(function (ex) {
+                console.log('parsing failed', ex);
+            });
+        }
+    }, {
+        key: 'retrieveRecentData',
+        value: function retrieveRecentData() {
+            var _this3 = this;
+
+            fetch('https://fcctop100.herokuapp.com/api/fccusers/top/recent').then(function (response) {
+                return response.json();
+            }).then(function (json) {
+                _this3.setState({
+                    data: json
                 });
             }).catch(function (ex) {
                 console.log('parsing failed', ex);
@@ -194,14 +206,23 @@ var CamperLeaderboard = function (_Component) {
         var _this = _possibleConstructorReturn(this, (CamperLeaderboard.__proto__ || Object.getPrototypeOf(CamperLeaderboard)).call(this, props));
 
         _this.state = {
-            topRecent: [],
-            topAllTime: []
+            data: []
         };
-        _this.refreshData();
+        _this.retrieveRecentData();
         return _this;
     }
 
     _createClass(CamperLeaderboard, [{
+        key: 'onTopRecentCommandHandler',
+        value: function onTopRecentCommandHandler() {
+            this.retrieveRecentData();
+        }
+    }, {
+        key: 'onTopAllTimeCommandHandler',
+        value: function onTopAllTimeCommandHandler() {
+            this.retrieveAlltimeData();
+        }
+    }, {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -226,7 +247,10 @@ var CamperLeaderboard = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__camper_leaderboard_table_jsx__["a" /* default */], { leaders: this.state.topRecent })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__camper_leaderboard_table_jsx__["a" /* default */], {
+                            onTopRecentCommand: this.onTopRecentCommandHandler.bind(this),
+                            onTopAllTimeCommand: this.onTopAllTimeCommandHandler.bind(this),
+                            leaders: this.state.data })
                     )
                 )
             );

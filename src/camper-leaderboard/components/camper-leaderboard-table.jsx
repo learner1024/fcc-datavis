@@ -1,6 +1,5 @@
 import React from 'react';
 import CamperLeaderboardTableRow from './camper-leaderboard-table-row.jsx';
-
 const CamperLeaderboardTable = (props) => {
     return(
         <table className='table table-striped table-bordered'>
@@ -8,8 +7,8 @@ const CamperLeaderboardTable = (props) => {
                 <tr>
                     <th>#</th>
                     <th>Leader</th>
-                    <th>All time brownie points</th>
-                    <th>Recent brownie points</th>
+                    <th><span onClick={props.onTopAllTimeCommand}>All time brownie points</span></th>
+                    <th><span onClick={props.onTopRecentCommand}>Recent brownie points</span></th>
                     <th>last updated</th>
                 </tr>
             </thead>

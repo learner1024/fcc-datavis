@@ -2,25 +2,25 @@ import React, {Component} from 'react';
 import CamperLeaderboardTable from './camper-leaderboard-table.jsx';
 
 class CamperLeaderboard extends Component{
-    refreshData(){        
-
-        fetch('https://fcctop100.herokuapp.com/api/fccusers/top/recent')
-        .then((response) => {
-            return response.json();
-        }).then((json) => {
-            this.setState({
-                topRecent: json
-            })
-        }).catch(function(ex) {
-            console.log('parsing failed', ex)
-        });
-
+    retrieveAlltimeData(){
         fetch('https://fcctop100.herokuapp.com/api/fccusers/top/alltime')
         .then((response) => {
             return response.json();
         }).then((json) => {
             this.setState({
-                topAllTime: json
+                data: json
+            })
+        }).catch(function(ex) {
+            console.log('parsing failed', ex)
+        });
+    }
+    retrieveRecentData(){
+        fetch('https://fcctop100.herokuapp.com/api/fccusers/top/recent')
+        .then((response) => {
+            return response.json();
+        }).then((json) => {
+            this.setState({
+                data: json
             })
         }).catch(function(ex) {
             console.log('parsing failed', ex)
@@ -29,10 +29,17 @@ class CamperLeaderboard extends Component{
     constructor(props){
         super(props);
         this.state = {
-            topRecent: [],
-            topAllTime: []
+            data: []
         };
-        this.refreshData();
+        this.retrieveRecentData();
+    }
+
+    onTopRecentCommandHandler(){
+        this.retrieveRecentData();
+    }
+
+    onTopAllTimeCommandHandler(){
+        this.retrieveAlltimeData();
     }
 
     render(){
@@ -45,7 +52,10 @@ class CamperLeaderboard extends Component{
                 </div>
                 <div className='row'>
                     <div className='col'>
-                        <CamperLeaderboardTable leaders={this.state.topRecent}  />
+                        <CamperLeaderboardTable 
+                            onTopRecentCommand={this.onTopRecentCommandHandler.bind(this)} 
+                            onTopAllTimeCommand={this.onTopAllTimeCommandHandler.bind(this)} 
+                            leaders={this.state.data}  />
                     </div>
                 </div>
             </div>
