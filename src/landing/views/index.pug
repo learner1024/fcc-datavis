@@ -7,6 +7,34 @@ html
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
     link(rel="icon", href="/favicon.ico", type="image/x-icon")
-  body
-    #app1Container.container-fluid
-    #app2Container.container-fluid
+  body    
+    .container-fluid
+      .row
+        nav.col-sm-3.col-md-2.bg-faded.sidebar
+          ul.nav.nav-pills.flex-column
+            li.nav-item
+              a.nav-link(href='#app1Container') Markdown Previewer 
+            li.nav-item
+              a.nav-link(href='#app2Container') Camper Leaderboard
+            li.nav-item
+              a.nav-link(href='#') Recipe Box
+            li.nav-item
+              a.nav-link(href='#') Game of Life
+            li.nav-item
+              a.nav-link(href='#') Dungeon Crawler Game
+          ul.nav.nav-pills.flex-column
+            li.nav-item
+              a.nav-link(href='#') Bar Chart
+            li.nav-item
+              a.nav-link(href='#') Scatterplot Graph
+            li.nav-item
+              a.nav-link(href='#') Heat Map
+            li.nav-item
+              a.nav-link(href='#') Force Directed Graph
+            li.nav-item
+              a.nav-link(href='#') Global Data Map
+        main.col-sm-9.offset-sm-3.col-md-10.offset-md-2.pt-3
+          #app1Container.container-fluid
+          #app2Container.container-fluid
+
+
