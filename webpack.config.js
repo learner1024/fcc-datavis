@@ -30,7 +30,7 @@ const commonPlugins = [
         $: 'jquery/dist/jquery.slim.min.js',
         jQuery: 'jquery/dist/jquery.slim.min.js',
         Tether: 'tether/dist/js/tether.min.js',
-        Promise: 'promise-polyfill/promise.min.js'
+        Promise: 'promise-polyfill/promise.min.js',
     }),
     new webpack.NamedModulesPlugin(),
 ];
@@ -41,15 +41,15 @@ const commonConfig = {
     entry: {
         apps: ['./landing/app.js', './camper-leaderboard/app.js', './md-previewer/app.js'],
         fx: [
-                'react/dist/react.min.js', 
-                'react-dom', 
-                'remarkable/dist/remarkable.min.js', 
-                'whatwg-fetch/fetch.js', 
-                'promise-polyfill/promise.min.js', 
-                'bootstrap/dist/js/bootstrap.min.js', 
-                'tether/dist/js/tether.min.js', 
-                'jquery/dist/jquery.slim.min.js'
-            ],
+            'react/dist/react.min.js', 
+            'react-dom', 
+            'remarkable/dist/remarkable.min.js', 
+            'whatwg-fetch/fetch.js', 
+            'promise-polyfill/promise.min.js', 
+            'bootstrap/dist/js/bootstrap.min.js', 
+            'tether/dist/js/tether.min.js', 
+            'jquery/dist/jquery.slim.min.js',
+        ],
     },
     module: {
         rules: [
