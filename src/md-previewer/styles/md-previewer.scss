@@ -1,9 +1,12 @@
 
-div.col{
-    border: 1px solid black;
-    .inpt, .outpt {
-        margin: 5%;
-        width: 90%;
-        height: 50vh;
+#app1Container{
+    div.col{
+        border: 1px solid black;
+        .inpt, .outpt {
+            margin: 5%;
+            width: 90%;
+            height: 50vh;
+        }
     }
+        
 }
