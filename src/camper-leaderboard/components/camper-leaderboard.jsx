@@ -1,4 +1,4 @@
-import React, {Component} from 'react/dist/react.min.js';
+import React, {Component} from 'react';
 
 class CamperLeaderboard extends Component{
     refreshData(){
