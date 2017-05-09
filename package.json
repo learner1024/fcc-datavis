@@ -43,8 +43,12 @@
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "dotenv": "^4.0.0",
+    "jquery": "^3.2.1",
+    "promise-polyfill": "^6.0.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "remarkable": "^1.7.1"
+    "remarkable": "^1.7.1",
+    "tether": "^1.4.0",
+    "whatwg-fetch": "^2.0.3"
   }
 }

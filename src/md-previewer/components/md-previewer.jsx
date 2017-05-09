@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import remarkable from 'remarkable';
+import React, {Component} from 'react/dist/react.min.js';
+import remarkable from 'remarkable/dist/remarkable.min.js';
 
 class MarkdownPreviewer extends Component{
     constructor(props){
