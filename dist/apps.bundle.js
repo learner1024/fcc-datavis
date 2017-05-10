@@ -24,7 +24,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__components_camper_leaderboard_jsx__["a" /* default */], null), document.querySelector('#app2Container'));
+//ReactDOM.render(<CamperLeaderboard />, document.querySelector('#app2Container'));
 
 /***/ }),
 
@@ -260,7 +260,7 @@ var CamperLeaderboard = function (_Component) {
     return CamperLeaderboard;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (CamperLeaderboard);
+/* unused harmony default export */ var _unused_webpack_default_export = (CamperLeaderboard);
 
 /***/ }),
 
@@ -323,7 +323,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_md_previewer_jsx__["a" /* default */], null), document.querySelector('#app1Container'));
+//ReactDOM.render(<MarkdownPreviewer />, document.querySelector('#app1Container'));
 
 /***/ }),
 
@@ -417,7 +417,7 @@ var MarkdownPreviewer = function (_Component) {
     return MarkdownPreviewer;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (MarkdownPreviewer);
+/* unused harmony default export */ var _unused_webpack_default_export = (MarkdownPreviewer);
 
 /***/ }),
 
@@ -445,7 +445,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_recipe_box_jsx__["a" /* default */], null), document.querySelector("#app3Container"));
+__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_recipe_box_jsx__["a" /* default */], null), document.querySelector('#app3Container'));
 
 /***/ }),
 
@@ -547,23 +547,83 @@ var RecipeBox = function (_Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
-var Recipe = function Recipe(_ref) {
-    var recipe = _ref.recipe,
-        onShowDetailsCommand = _ref.onShowDetailsCommand,
-        onEditCommand = _ref.onEditCommand,
-        onDeleteCommand = _ref.onDeleteCommand,
-        onSaveCommand = _ref.onSaveCommand;
 
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        null,
-        recipe.id,
-        ' - ',
-        recipe.name
-    );
-};
+var Recipe = function (_Component) {
+    _inherits(Recipe, _Component);
+
+    function Recipe(props) {
+        _classCallCheck(this, Recipe);
+
+        var _this = _possibleConstructorReturn(this, (Recipe.__proto__ || Object.getPrototypeOf(Recipe)).call(this, props));
+
+        var recipe = props.recipe,
+            onShowDetailsCommand = props.onShowDetailsCommand,
+            onEditCommand = props.onEditCommand,
+            onDeleteCommand = props.onDeleteCommand,
+            onSaveCommand = props.onSaveCommand;
+
+        _this.state = {
+            recipe: recipe,
+            isEditMode: false
+        };
+        return _this;
+    }
+
+    _createClass(Recipe, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var markp;
+            if (this.state.isEditMode) {
+                markp = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', defaultValue: this.state.recipe.name }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: function onClick() {
+                                return _this2.setState({ isEditMode: false });
+                            } },
+                        'save'
+                    )
+                );
+            } else {
+                markp = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        null,
+                        this.state.recipe.id,
+                        ' - ',
+                        this.state.recipe.name
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: function onClick() {
+                                return _this2.setState({ isEditMode: true });
+                            } },
+                        'edit'
+                    )
+                );
+            }
+
+            return markp;
+        }
+    }]);
+
+    return Recipe;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Recipe);
 
