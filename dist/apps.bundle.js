@@ -428,12 +428,161 @@ var MarkdownPreviewer = function (_Component) {
 
 /***/ }),
 
+/***/ "./recipe-box/app.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__styles_recipe_box_scss__ = __webpack_require__("./recipe-box/styles/recipe-box.scss");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__styles_recipe_box_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__styles_recipe_box_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_recipe_box_jsx__ = __webpack_require__("./recipe-box/components/recipe-box.jsx");
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_recipe_box_jsx__["a" /* default */], null), document.querySelector("#app3Container"));
+
+/***/ }),
+
+/***/ "./recipe-box/components/recipe-box.jsx":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__recipe_jsx__ = __webpack_require__("./recipe-box/components/recipe.jsx");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var RecipeBox = function (_Component) {
+    _inherits(RecipeBox, _Component);
+
+    function RecipeBox(props) {
+        _classCallCheck(this, RecipeBox);
+
+        var _this = _possibleConstructorReturn(this, (RecipeBox.__proto__ || Object.getPrototypeOf(RecipeBox)).call(this, props));
+
+        _this.state = {
+            newRecipeName: '',
+            recipes: JSON.parse(localStorage.getItem('fcc-recipebox-recipes') || '[]')
+        };
+        return _this;
+    }
+
+    _createClass(RecipeBox, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'recipe name...', onChange: function onChange(e) {
+                                return _this2.setState({ newRecipeName: e.target.value });
+                            } }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { onClick: function onClick() {
+                                    //store this new recipe in localStorage
+                                    var rcps = [].concat(_toConsumableArray(_this2.state.recipes), [{ id: _this2.state.recipes.length + 1, name: _this2.state.newRecipeName }]);
+                                    localStorage.setItem('fcc-recipebox-recipes', JSON.stringify(rcps));
+                                    _this2.setState({
+                                        recipes: JSON.parse(localStorage.getItem('fcc-recipebox-recipes'))
+                                    });
+                                } },
+                            'Create'
+                        )
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col' },
+                        this.state.recipes.map(function (r) {
+                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__recipe_jsx__["a" /* default */], { recipe: r, key: r.id,
+                                onShowDetailsCommand: function onShowDetailsCommand() {},
+                                onEditCommand: function onEditCommand() {},
+                                onDeleteCommand: function onDeleteCommand() {},
+                                onSaveCommand: function onSaveCommand() {} });
+                        })
+                    )
+                )
+            );
+        }
+    }]);
+
+    return RecipeBox;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (RecipeBox);
+
+/***/ }),
+
+/***/ "./recipe-box/components/recipe.jsx":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+var Recipe = function Recipe(_ref) {
+    var recipe = _ref.recipe,
+        onShowDetailsCommand = _ref.onShowDetailsCommand,
+        onEditCommand = _ref.onEditCommand,
+        onDeleteCommand = _ref.onDeleteCommand,
+        onSaveCommand = _ref.onSaveCommand;
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        null,
+        recipe.id,
+        ' - ',
+        recipe.name
+    );
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Recipe);
+
+/***/ }),
+
+/***/ "./recipe-box/styles/recipe-box.scss":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("./landing/app.js");
 __webpack_require__("./camper-leaderboard/app.js");
-module.exports = __webpack_require__("./md-previewer/app.js");
+__webpack_require__("./md-previewer/app.js");
+module.exports = __webpack_require__("./recipe-box/app.js");
 
 
 /***/ })

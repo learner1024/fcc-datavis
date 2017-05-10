@@ -38,7 +38,7 @@ const commonPlugins = [
 const commonConfig = {
     context: PATHS.src,
     entry: {
-        apps: ['./landing/app.js', './camper-leaderboard/app.js', './md-previewer/app.js'],
+        apps: ['./landing/app.js', './camper-leaderboard/app.js', './md-previewer/app.js', './recipe-box/app.js'],
         fx: [
             'react', 
             'react-dom', 
