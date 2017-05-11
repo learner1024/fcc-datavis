@@ -456,15 +456,15 @@ __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__recipe_jsx__ = __webpack_require__("./recipe-box/components/recipe.jsx");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stores_RecipeStore_js__ = __webpack_require__("./recipe-box/stores/RecipeStore.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -477,9 +477,10 @@ var RecipeBox = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (RecipeBox.__proto__ || Object.getPrototypeOf(RecipeBox)).call(this, props));
 
+        _this.recipeStore = new __WEBPACK_IMPORTED_MODULE_2__stores_RecipeStore_js__["a" /* default */]();
         _this.state = {
             newRecipeName: '',
-            recipes: JSON.parse(localStorage.getItem('fcc-recipebox-recipes') || '[]')
+            recipes: _this.recipeStore.getAllRecipes()
         };
         return _this;
     }
@@ -504,11 +505,9 @@ var RecipeBox = function (_Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'button',
                             { onClick: function onClick() {
-                                    //store this new recipe in localStorage
-                                    var rcps = [].concat(_toConsumableArray(_this2.state.recipes), [{ id: _this2.state.recipes.length + 1, name: _this2.state.newRecipeName }]);
-                                    localStorage.setItem('fcc-recipebox-recipes', JSON.stringify(rcps));
+                                    _this2.recipeStore.createRecipe({ name: _this2.state.newRecipeName });
                                     _this2.setState({
-                                        recipes: JSON.parse(localStorage.getItem('fcc-recipebox-recipes'))
+                                        recipes: _this2.recipeStore.getAllRecipes()
                                     });
                                 } },
                             'Create'
@@ -523,10 +522,18 @@ var RecipeBox = function (_Component) {
                         { className: 'col' },
                         this.state.recipes.map(function (r) {
                             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__recipe_jsx__["a" /* default */], { recipe: r, key: r.id,
-                                onShowDetailsCommand: function onShowDetailsCommand() {},
-                                onEditCommand: function onEditCommand() {},
-                                onDeleteCommand: function onDeleteCommand() {},
-                                onSaveCommand: function onSaveCommand() {} });
+                                deleteCommand: function deleteCommand(recipeId) {
+                                    _this2.recipeStore.deleteRecipe(recipeId);
+                                    _this2.setState({
+                                        recipes: _this2.recipeStore.getAllRecipes()
+                                    });
+                                },
+                                updateCommand: function updateCommand(r) {
+                                    _this2.recipeStore.updateRecipe(r);
+                                    _this2.setState({
+                                        recipes: _this2.recipeStore.getAllRecipes()
+                                    });
+                                } });
                         })
                     )
                 )
@@ -565,14 +572,8 @@ var Recipe = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (Recipe.__proto__ || Object.getPrototypeOf(Recipe)).call(this, props));
 
-        var recipe = props.recipe,
-            onShowDetailsCommand = props.onShowDetailsCommand,
-            onEditCommand = props.onEditCommand,
-            onDeleteCommand = props.onDeleteCommand,
-            onSaveCommand = props.onSaveCommand;
-
         _this.state = {
-            recipe: recipe,
+            recipeName: _this.props.recipe.name,
             isEditMode: false
         };
         return _this;
@@ -588,13 +589,24 @@ var Recipe = function (_Component) {
                 markp = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', defaultValue: this.state.recipe.name }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', defaultValue: this.props.recipe.name, onChange: function onChange(e) {
+                            _this2.setState({ recipeName: e.target.value });
+                        } }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         { onClick: function onClick() {
-                                return _this2.setState({ isEditMode: false });
+                                _this2.props.updateCommand({ id: _this2.props.recipe.id, name: _this2.state.recipeName });
+                                _this2.setState({ isEditMode: false });
                             } },
                         'save'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: function onClick() {
+                                _this2.setState({ isEditMode: false });
+                                _this2.setState({ recipeName: _this2.props.recipe.name });
+                            } },
+                        'cancel'
                     )
                 );
             } else {
@@ -604,9 +616,9 @@ var Recipe = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'span',
                         null,
-                        this.state.recipe.id,
+                        this.props.recipe.id,
                         ' - ',
-                        this.state.recipe.name
+                        this.props.recipe.name
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
@@ -614,6 +626,15 @@ var Recipe = function (_Component) {
                                 return _this2.setState({ isEditMode: true });
                             } },
                         'edit'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: function onClick() {
+                                if (window.confirm('are you sure?')) {
+                                    _this2.props.deleteCommand(_this2.props.recipe.id);
+                                }
+                            } },
+                        'delete'
                     )
                 );
             }
@@ -626,6 +647,78 @@ var Recipe = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Recipe);
+
+/***/ }),
+
+/***/ "./recipe-box/stores/RecipeStore.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var RecipeStore = function () {
+    function RecipeStore() {
+        _classCallCheck(this, RecipeStore);
+
+        this.recipes = [];
+        var localStore = localStorage.getItem('fcc-recipe-box');
+        if (!localStore) {
+            localStorage.setItem('fcc-recipe-box', JSON.stringify(this.recipes));
+        } else {
+            this.recipes = JSON.parse(localStore);
+        }
+    }
+
+    _createClass(RecipeStore, [{
+        key: 'createRecipe',
+        value: function createRecipe(recipe) {
+            recipe.id = this.recipes.length == 0 ? 1 : this.recipes[this.recipes.length - 1].id + 1;
+            this.recipes.push(recipe);
+            localStorage.setItem('fcc-recipe-box', JSON.stringify(this.recipes));
+        }
+    }, {
+        key: 'updateRecipe',
+        value: function updateRecipe(recipe) {
+            var indexToUpdate = this.recipes.findIndex(function (r) {
+                return r.id == recipe.id;
+            });
+
+            for (var p in recipe) {
+                if (p != "id") {
+                    this.recipes[indexToUpdate][p] = recipe[p];
+                }
+            }
+            localStorage.setItem('fcc-recipe-box', JSON.stringify(this.recipes));
+        }
+    }, {
+        key: 'deleteRecipe',
+        value: function deleteRecipe(recipeId) {
+            var indexToDelete = this.recipes.findIndex(function (r) {
+                return r.id == recipeId;
+            });
+            this.recipes.splice(indexToDelete, 1);
+            localStorage.setItem('fcc-recipe-box', JSON.stringify(this.recipes));
+        }
+    }, {
+        key: 'getRecipe',
+        value: function getRecipe(recipeId) {
+            return this.recipes.find(function (r) {
+                return r.id == recipeId;
+            });
+        }
+    }, {
+        key: 'getAllRecipes',
+        value: function getAllRecipes() {
+            return this.recipes;
+        }
+    }]);
+
+    return RecipeStore;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (RecipeStore);
 
 /***/ }),
 

@@ -9,7 +9,7 @@ class RecipeBox extends Component{
         this.recipeStore = new RecipeStore();
         this.state = {
             newRecipeName: '',
-            recipes : JSON.parse(localStorage.getItem('fcc-recipebox-recipes') || '[]')
+            recipes : this.recipeStore.getAllRecipes()
         };
     }
     render(){
@@ -21,11 +21,9 @@ class RecipeBox extends Component{
                             this.setState({newRecipeName: e.target.value})
                         }/>
                         <button onClick={() => {
-                            //store this new recipe in localStorage
-                            let rcps = [...this.state.recipes, {id: this.state.recipes.length + 1, name: this.state.newRecipeName}]
-                            localStorage.setItem('fcc-recipebox-recipes', JSON.stringify(rcps));
+                            this.recipeStore.createRecipe({name: this.state.newRecipeName});
                             this.setState({ 
-                                recipes : JSON.parse(localStorage.getItem('fcc-recipebox-recipes'))
+                                recipes : this.recipeStore.getAllRecipes()
                             });
                         }}>Create</button>
                     </div>                    
@@ -35,7 +33,19 @@ class RecipeBox extends Component{
                         {                    
                             this.state.recipes.map((r) => {
                                 return (
-                                    <Recipe recipe={r} key={r.id} />
+                                    <Recipe recipe={r} key={r.id}
+                                        deleteCommand={ (recipeId) => {
+                                            this.recipeStore.deleteRecipe(recipeId);
+                                            this.setState({ 
+                                                recipes : this.recipeStore.getAllRecipes()
+                                            });
+                                        }} 
+                                        updateCommand={(r) => {
+                                            this.recipeStore.updateRecipe(r);
+                                            this.setState({ 
+                                                recipes : this.recipeStore.getAllRecipes()
+                                            });
+                                        }}  />
                                 );
                             })
                         }

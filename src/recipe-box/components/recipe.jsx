@@ -4,9 +4,8 @@ class Recipe extends Component{
     constructor(props){
         super(props);
 
-        let {recipe} = props;
         this.state = {
-            recipe,
+            recipeName: this.props.recipe.name,
             isEditMode: false
         }
     }
@@ -15,8 +14,17 @@ class Recipe extends Component{
         if(this.state.isEditMode){
             markp = (
                 <div>
-                    <input type='text' defaultValue={this.state.recipe.name} />
-                    <button onClick={() => this.setState({isEditMode : false})}>save</button>
+                    <input type='text' defaultValue={this.props.recipe.name} onChange={(e) => {
+                        this.setState({recipeName: e.target.value})
+                    }} />
+                    <button onClick={() => {
+                        this.props.updateCommand({id : this.props.recipe.id, name : this.state.recipeName});
+                        this.setState({isEditMode : false});    
+                    }}>save</button>
+                    <button onClick={() => {
+                        this.setState({isEditMode : false})
+                        this.setState({recipeName: this.props.recipe.name})
+                    }}>cancel</button>
                 </div>
             )
         
@@ -24,8 +32,13 @@ class Recipe extends Component{
         else{
             markp = (
                 <div>
-                    <span>{this.state.recipe.id} - {this.state.recipe.name}</span>
+                    <span>{this.props.recipe.id} - {this.props.recipe.name}</span>
                     <button onClick={() => this.setState({isEditMode : true})}>edit</button>
+                    <button onClick={() => {
+                        if(window.confirm('are you sure?')){
+                            this.props.deleteCommand(this.props.recipe.id);
+                        }
+                    }}>delete</button>
                 </div>
             )
         } 
