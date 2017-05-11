@@ -7,6 +7,13 @@ webpackJsonp([0],{
 
 /***/ }),
 
+/***/ "../node_modules/font-awesome/css/font-awesome.css":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./camper-leaderboard/app.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -282,10 +289,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_style1_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__styles_style1_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bootstrap_dist_js_bootstrap_min_js__ = __webpack_require__("../node_modules/bootstrap/dist/js/bootstrap.min.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bootstrap_dist_js_bootstrap_min_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_bootstrap_dist_js_bootstrap_min_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_whatwg_fetch__ = __webpack_require__("../node_modules/whatwg-fetch/fetch.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_whatwg_fetch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_promise_polyfill__ = __webpack_require__("../node_modules/promise-polyfill/promise.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_promise_polyfill___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_promise_polyfill__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_font_awesome_css_font_awesome_css__ = __webpack_require__("../node_modules/font-awesome/css/font-awesome.css");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_font_awesome_css_font_awesome_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_font_awesome_css_font_awesome_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_whatwg_fetch__ = __webpack_require__("../node_modules/whatwg-fetch/fetch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_whatwg_fetch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_promise_polyfill__ = __webpack_require__("../node_modules/promise-polyfill/promise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_promise_polyfill___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_promise_polyfill__);
+
 
 
 
@@ -294,7 +304,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 if (!window.Promise) {
-    window.Promise = __WEBPACK_IMPORTED_MODULE_4_promise_polyfill___default.a;
+    window.Promise = __WEBPACK_IMPORTED_MODULE_5_promise_polyfill___default.a;
 }
 
 /***/ }),
@@ -522,6 +532,7 @@ var RecipeBox = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-circle' }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'row' },
