@@ -1,14 +1,9 @@
-body
-    | this will containe links to
-
-    | reactjs - markdown previewer
-    | reactjs - camper leaderboard
-    | reactjs - recipe box
-    | reactjs - game of life
-    | reactjs - Roguelike Dungeon Crawler game
-
-    | datavis - bar chart
-    | datavis - scatter plot
-    | datavis - heat map
-    | datavis - force directed graph
-    | datavis - map data across globe
+# FreeCodeCamp Data Visualisation Challenges
+## React
+## D3
+### To Install
+#### `npm install` or `yarn install`
+### To run locally
+#### `npm run start`
+### To run es lint
+#### `npm run lint:es`
