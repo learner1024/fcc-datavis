@@ -1,6 +1,4 @@
 # FreeCodeCamp Data Visualisation Challenges
-## React
-## D3
 ### To Install
 #### `npm install` or `yarn install`
 ### To run locally
