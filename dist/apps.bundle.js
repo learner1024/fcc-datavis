@@ -486,6 +486,35 @@ var RecipeBox = function (_Component) {
     }
 
     _createClass(RecipeBox, [{
+        key: 'recipeNameChangeHandler',
+        value: function recipeNameChangeHandler(e) {
+            this.setState({ newRecipeName: e.target.value });
+        }
+    }, {
+        key: 'createRecipeCommandHandler',
+        value: function createRecipeCommandHandler() {
+            this.recipeStore.createRecipe({ name: this.state.newRecipeName, ingredients: [] });
+            this.setState({
+                recipes: this.recipeStore.getAllRecipes()
+            });
+        }
+    }, {
+        key: 'deleteRecipeCommandHandler',
+        value: function deleteRecipeCommandHandler(recipeId) {
+            this.recipeStore.deleteRecipe(recipeId);
+            this.setState({
+                recipes: this.recipeStore.getAllRecipes()
+            });
+        }
+    }, {
+        key: 'updateRecipeCommandHandler',
+        value: function updateRecipeCommandHandler(recipe) {
+            this.recipeStore.updateRecipe(recipe);
+            this.setState({
+                recipes: this.recipeStore.getAllRecipes()
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -499,17 +528,10 @@ var RecipeBox = function (_Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'col' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'recipe name...', onChange: function onChange(e) {
-                                return _this2.setState({ newRecipeName: e.target.value });
-                            } }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'recipe name...', onChange: this.recipeNameChangeHandler.bind(this) }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'button',
-                            { onClick: function onClick() {
-                                    _this2.recipeStore.createRecipe({ name: _this2.state.newRecipeName, ingredients: [] });
-                                    _this2.setState({
-                                        recipes: _this2.recipeStore.getAllRecipes()
-                                    });
-                                } },
+                            { onClick: this.createRecipeCommandHandler.bind(this) },
                             'Create'
                         )
                     )
@@ -522,18 +544,9 @@ var RecipeBox = function (_Component) {
                         { className: 'col' },
                         this.state.recipes.map(function (r) {
                             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__recipe_jsx__["a" /* default */], { recipe: r, key: r.id,
-                                deleteCommand: function deleteCommand(recipeId) {
-                                    _this2.recipeStore.deleteRecipe(recipeId);
-                                    _this2.setState({
-                                        recipes: _this2.recipeStore.getAllRecipes()
-                                    });
-                                },
-                                updateCommand: function updateCommand(r) {
-                                    _this2.recipeStore.updateRecipe(r);
-                                    _this2.setState({
-                                        recipes: _this2.recipeStore.getAllRecipes()
-                                    });
-                                } });
+                                deleteCommand: _this2.deleteRecipeCommandHandler.bind(_this2),
+                                updateCommand: _this2.updateRecipeCommandHandler.bind(_this2)
+                            });
                         })
                     )
                 )
@@ -581,6 +594,27 @@ var Recipe = function (_Component) {
     }
 
     _createClass(Recipe, [{
+        key: 'updateRecipeCommandHandler',
+        value: function updateRecipeCommandHandler() {
+            this.props.updateCommand({ id: this.props.recipe.id, name: this.state.recipeName, ingredients: this.state.ingredients });
+            this.setState({ isEditMode: false });
+        }
+    }, {
+        key: 'cancelUpdateRecipeCommandHandler',
+        value: function cancelUpdateRecipeCommandHandler() {
+            this.setState({ isEditMode: false });
+        }
+    }, {
+        key: 'recipeNameChangeHandler',
+        value: function recipeNameChangeHandler(e) {
+            this.setState({ recipeName: e.target.value });
+        }
+    }, {
+        key: 'ingredientsChangeHandler',
+        value: function ingredientsChangeHandler(e) {
+            this.setState({ ingredients: e.target.value.split(',') });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -592,32 +626,23 @@ var Recipe = function (_Component) {
                     null,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
-                        { onClick: function onClick() {
-                                _this2.props.updateCommand({ id: _this2.props.recipe.id, name: _this2.state.recipeName, ingredients: _this2.state.ingredients });
-                                _this2.setState({ isEditMode: false });
-                            } },
+                        { onClick: this.updateRecipeCommandHandler.bind(this) },
                         'save'
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
-                        { onClick: function onClick() {
-                                _this2.setState({ isEditMode: false });
-                            } },
+                        { onClick: this.cancelUpdateRecipeCommandHandler.bind(this) },
                         'cancel'
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', defaultValue: this.props.recipe.name, onChange: function onChange(e) {
-                                _this2.setState({ recipeName: e.target.value });
-                            } })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', defaultValue: this.props.recipe.name, onChange: this.recipeNameChangeHandler.bind(this) })
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         null,
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', defaultValue: this.props.recipe.ingredients.join(','), onChange: function onChange(e) {
-                                _this2.setState({ ingredients: e.target.value.split(',') });
-                            } })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { defaultValue: this.props.recipe.ingredients.join(','), onChange: this.ingredientsChangeHandler.bind(this) })
                     )
                 );
             } else {

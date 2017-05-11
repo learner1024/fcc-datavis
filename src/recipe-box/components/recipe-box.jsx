@@ -12,20 +12,34 @@ class RecipeBox extends Component{
             recipes : this.recipeStore.getAllRecipes()
         };
     }
+    recipeNameChangeHandler(e){
+        this.setState({newRecipeName: e.target.value})
+    }
+    createRecipeCommandHandler(){
+        this.recipeStore.createRecipe({name: this.state.newRecipeName, ingredients: []});
+        this.setState({ 
+            recipes : this.recipeStore.getAllRecipes()
+        });
+    }    
+    deleteRecipeCommandHandler(recipeId){
+        this.recipeStore.deleteRecipe(recipeId);
+        this.setState({ 
+            recipes : this.recipeStore.getAllRecipes()
+        });
+    }
+    updateRecipeCommandHandler(recipe){
+        this.recipeStore.updateRecipe(recipe);
+        this.setState({ 
+            recipes : this.recipeStore.getAllRecipes()
+        });
+    }
     render(){
         return (
             <div>
                 <div className='row'>
                     <div className='col'>
-                        <input type='text' placeholder='recipe name...' onChange={(e) => 
-                            this.setState({newRecipeName: e.target.value})
-                        }/>
-                        <button onClick={() => {
-                            this.recipeStore.createRecipe({name: this.state.newRecipeName, ingredients: []});
-                            this.setState({ 
-                                recipes : this.recipeStore.getAllRecipes()
-                            });
-                        }}>Create</button>
+                        <input type='text' placeholder='recipe name...' onChange={this.recipeNameChangeHandler.bind(this)}/>
+                        <button onClick={this.createRecipeCommandHandler.bind(this)}>Create</button>
                     </div>                    
                 </div>
                 <div className='row'>
@@ -34,18 +48,9 @@ class RecipeBox extends Component{
                             this.state.recipes.map((r) => {
                                 return (
                                     <Recipe recipe={r} key={r.id}
-                                        deleteCommand={ (recipeId) => {
-                                            this.recipeStore.deleteRecipe(recipeId);
-                                            this.setState({ 
-                                                recipes : this.recipeStore.getAllRecipes()
-                                            });
-                                        }} 
-                                        updateCommand={(r) => {
-                                            this.recipeStore.updateRecipe(r);
-                                            this.setState({ 
-                                                recipes : this.recipeStore.getAllRecipes()
-                                            });
-                                        }}  />
+                                        deleteCommand={this.deleteRecipeCommandHandler.bind(this)} 
+                                        updateCommand={this.updateRecipeCommandHandler.bind(this)}  
+                                    />
                                 );
                             })
                         }

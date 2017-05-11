@@ -10,27 +10,31 @@ class Recipe extends Component{
             isEditMode: false
         }
     }
+    updateRecipeCommandHandler(){
+        this.props.updateCommand({id : this.props.recipe.id, name : this.state.recipeName, ingredients: this.state.ingredients});
+        this.setState({isEditMode : false});    
+    }
+    cancelUpdateRecipeCommandHandler(){
+        this.setState({isEditMode : false});
+    }
+    recipeNameChangeHandler(e){
+        this.setState({recipeName: e.target.value});
+    }
+    ingredientsChangeHandler(e){
+        this.setState({ingredients: e.target.value.split(',')})
+    }
     render(){
         var markp;
         if(this.state.isEditMode){
             markp = (
                 <div>
-                    <button onClick={() => {
-                        this.props.updateCommand({id : this.props.recipe.id, name : this.state.recipeName, ingredients: this.state.ingredients});
-                        this.setState({isEditMode : false});    
-                    }}>save</button>
-                    <button onClick={() => {
-                        this.setState({isEditMode : false});
-                    }}>cancel</button>
+                    <button onClick={this.updateRecipeCommandHandler.bind(this)}>save</button>
+                    <button onClick={this.cancelUpdateRecipeCommandHandler.bind(this)}>cancel</button>
                     <div>
-                        <input type='text' defaultValue={this.props.recipe.name} onChange={(e) => {
-                            this.setState({recipeName: e.target.value})
-                        }} />
+                        <input type='text' defaultValue={this.props.recipe.name} onChange={this.recipeNameChangeHandler.bind(this)} />
                     </div>
                     <div>
-                        <input type='text' defaultValue={this.props.recipe.ingredients.join(',')} onChange={(e) => {
-                            this.setState({ingredients: e.target.value.split(',')})
-                        }} />
+                        <textarea defaultValue={this.props.recipe.ingredients.join(',')} onChange={this.ingredientsChangeHandler.bind(this)} />
                     </div>
                     
                 </div>
