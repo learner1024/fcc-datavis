@@ -21,7 +21,7 @@ class RecipeBox extends Component{
                             this.setState({newRecipeName: e.target.value})
                         }/>
                         <button onClick={() => {
-                            this.recipeStore.createRecipe({name: this.state.newRecipeName});
+                            this.recipeStore.createRecipe({name: this.state.newRecipeName, ingredients: []});
                             this.setState({ 
                                 recipes : this.recipeStore.getAllRecipes()
                             });
