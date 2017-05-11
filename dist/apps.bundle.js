@@ -505,7 +505,7 @@ var RecipeBox = function (_Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'button',
                             { onClick: function onClick() {
-                                    _this2.recipeStore.createRecipe({ name: _this2.state.newRecipeName });
+                                    _this2.recipeStore.createRecipe({ name: _this2.state.newRecipeName, ingredients: [] });
                                     _this2.setState({
                                         recipes: _this2.recipeStore.getAllRecipes()
                                     });
@@ -574,6 +574,7 @@ var Recipe = function (_Component) {
 
         _this.state = {
             recipeName: _this.props.recipe.name,
+            ingredients: _this.props.recipe.ingredients,
             isEditMode: false
         };
         return _this;
@@ -589,13 +590,10 @@ var Recipe = function (_Component) {
                 markp = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', defaultValue: this.props.recipe.name, onChange: function onChange(e) {
-                            _this2.setState({ recipeName: e.target.value });
-                        } }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         { onClick: function onClick() {
-                                _this2.props.updateCommand({ id: _this2.props.recipe.id, name: _this2.state.recipeName });
+                                _this2.props.updateCommand({ id: _this2.props.recipe.id, name: _this2.state.recipeName, ingredients: _this2.state.ingredients });
                                 _this2.setState({ isEditMode: false });
                             } },
                         'save'
@@ -604,22 +602,28 @@ var Recipe = function (_Component) {
                         'button',
                         { onClick: function onClick() {
                                 _this2.setState({ isEditMode: false });
-                                _this2.setState({ recipeName: _this2.props.recipe.name });
                             } },
                         'cancel'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', defaultValue: this.props.recipe.name, onChange: function onChange(e) {
+                                _this2.setState({ recipeName: e.target.value });
+                            } })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', defaultValue: this.props.recipe.ingredients.join(','), onChange: function onChange(e) {
+                                _this2.setState({ ingredients: e.target.value.split(',') });
+                            } })
                     )
                 );
             } else {
                 markp = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'span',
-                        null,
-                        this.props.recipe.id,
-                        ' - ',
-                        this.props.recipe.name
-                    ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
                         { onClick: function onClick() {
@@ -635,6 +639,26 @@ var Recipe = function (_Component) {
                                 }
                             } },
                         'delete'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'h1',
+                            null,
+                            this.props.recipe.name
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'ul',
+                            null,
+                            this.props.recipe.ingredients.map(function (i, indx) {
+                                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'li',
+                                    { key: indx },
+                                    i
+                                );
+                            })
+                        )
                     )
                 );
             }
@@ -686,7 +710,7 @@ var RecipeStore = function () {
             });
 
             for (var p in recipe) {
-                if (p != "id") {
+                if (p != 'id') {
                     this.recipes[indexToUpdate][p] = recipe[p];
                 }
             }
