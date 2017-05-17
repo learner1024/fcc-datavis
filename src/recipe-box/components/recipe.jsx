@@ -24,57 +24,63 @@ class Recipe extends Component{
         this.setState({ingredients: e.target.value.split(',')})
     }
     render(){
-        var markp;
-        if(this.state.isEditMode){
-            markp = (
-                <div className='row'>                    
-                    <div className="col-3">
-                        <input type='text' defaultValue={this.props.recipe.name} onChange={this.recipeNameChangeHandler.bind(this)} />
-                    </div>
-                    <div className="col-7">
-                        <textarea defaultValue={this.props.recipe.ingredients.join(',')} onChange={this.ingredientsChangeHandler.bind(this)} />
-                    </div>
-                    <div className="col-2">
-                        <button 
-                            onClick={this.updateRecipeCommandHandler.bind(this)}
-                            className="btn btn-default">
-                            <i className="fa fa-floppy-o"></i></button>
-                        <button className="btn btn-default"
-                            onClick={this.cancelUpdateRecipeCommandHandler.bind(this)}>
-                            <i className="fa fa-undo"></i></button>
-                    </div>        
+        var markp = (
+            <div className="card">
+                <div className="card-header" role="tab" id={'rcp' + this.props.recipe.id}>
+                    <h5 className="mb-0">
+                        <a data-toggle="collapse" data-parent="#recipeBox" href={'#rcpClps' + this.props.recipe.id} aria-expanded="true" aria-controls={'rcpClps' + this.props.recipe.id}>
+                        {this.props.recipe.name}
+                        </a>
+                    </h5>                        
                 </div>
-            )
-        
-        }
-        else{
-            markp = (
-                <div className="row">
-                    <div className="col-3">
-                        <h1>{this.props.recipe.name}</h1>
-                    </div>
-                    <div className="col-7">
-                        <ul className="list-group">
-                            {this.props.recipe.ingredients.map((i, indx) => {
-                                return <li key={indx} className="list-group-item">{i}</li>
-                            })}
-                        </ul>
-                    </div>
-                    <div className="col-2">
-                        <button 
-                            onClick={() => this.setState({isEditMode : true})} 
-                            className="btn btn-default">
-                            <i className="fa fa-pencil"></i></button>
-                        <button className="btn btn-default"
-                            onClick={() => {
-                            if(window.confirm('are you sure?')){
-                                this.props.deleteCommand(this.props.recipe.id);
-                            }}}>
-                            <i className="fa fa-times"></i></button>
+
+                <div id={'rcpClps' + this.props.recipe.id} className="collapse show" role="tabpanel" aria-labelledby={'rcp' + this.props.recipe.id}>
+                    <div className="card-block">
+                        
+                        {this.state.isEditMode && 
+                            <div>
+                                <div>
+                                    <button 
+                                        onClick={this.updateRecipeCommandHandler.bind(this)}
+                                        className="btn btn-default">
+                                        <i className="fa fa-floppy-o"></i></button>
+                                    <button className="btn btn-default"
+                                        onClick={this.cancelUpdateRecipeCommandHandler.bind(this)}>
+                                        <i className="fa fa-undo"></i></button>
+                                </div> 
+                                <div>
+                                    <input type='text' defaultValue={this.props.recipe.name} onChange={this.recipeNameChangeHandler.bind(this)} />
+                                </div>
+                                <div>
+                                    <textarea defaultValue={this.props.recipe.ingredients.join(',')} onChange={this.ingredientsChangeHandler.bind(this)} />
+                                </div>
+                            </div>
+                        }
+                        {!this.state.isEditMode && 
+                            <div>
+                                <button 
+                                    onClick={() => this.setState({isEditMode : true})} 
+                                    className="btn btn-default">
+                                    <i className="fa fa-pencil"></i></button>
+                                <button className="btn btn-default"
+                                    onClick={() => {
+                                    if(window.confirm('are you sure?')){
+                                        this.props.deleteCommand(this.props.recipe.id);
+                                    }}}>
+                                    <i className="fa fa-times"></i></button>
+                                <ul className="list-group">
+                                    {this.props.recipe.ingredients.map((i, indx) => {
+                                        return <li key={indx} className="list-group-item">{i}</li>
+                                    })}
+                                </ul>
+                            </div>
+                        }
+
+                        
                     </div>
                 </div>
-            )
-        } 
+            </div>
+        )
                     
         return markp;
     }

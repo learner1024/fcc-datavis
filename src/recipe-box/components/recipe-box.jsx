@@ -40,22 +40,20 @@ class RecipeBox extends Component{
                     <div className='col'>
                         <input type='text' placeholder='recipe name...' onChange={this.recipeNameChangeHandler.bind(this)}/>
                         <button onClick={this.createRecipeCommandHandler.bind(this)}>Create</button>
-                    </div>                    
-                </div>
-                <div className='row'>
-                    <div className='col'>
-                        {                    
-                            this.state.recipes.map((r) => {
-                                return (
-                                    <Recipe recipe={r} key={r.id}
-                                        deleteCommand={this.deleteRecipeCommandHandler.bind(this)} 
-                                        updateCommand={this.updateRecipeCommandHandler.bind(this)}  
-                                    />
-                                );
-                            })
-                        }
                     </div>
-                </div>                
+                </div>
+                <div id="accordion" role="tablist" aria-multiselectable="true">
+                    {
+                        this.state.recipes.map((r) => {
+                            return (
+                                <Recipe recipe={r} key={r.id}
+                                    deleteCommand={this.deleteRecipeCommandHandler.bind(this)} 
+                                    updateCommand={this.updateRecipeCommandHandler.bind(this)}  
+                                />
+                            );
+                        })
+                    }
+                </div>
             </div>
         );
     }
