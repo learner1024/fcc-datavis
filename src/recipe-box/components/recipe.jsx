@@ -27,36 +27,50 @@ class Recipe extends Component{
         var markp;
         if(this.state.isEditMode){
             markp = (
-                <div>
-                    <button onClick={this.updateRecipeCommandHandler.bind(this)}>save</button>
-                    <button onClick={this.cancelUpdateRecipeCommandHandler.bind(this)}>cancel</button>
-                    <div>
+                <div className='row'>                    
+                    <div className="col-3">
                         <input type='text' defaultValue={this.props.recipe.name} onChange={this.recipeNameChangeHandler.bind(this)} />
                     </div>
-                    <div>
+                    <div className="col-7">
                         <textarea defaultValue={this.props.recipe.ingredients.join(',')} onChange={this.ingredientsChangeHandler.bind(this)} />
                     </div>
-                    
+                    <div className="col-2">
+                        <button 
+                            onClick={this.updateRecipeCommandHandler.bind(this)}
+                            className="btn btn-default">
+                            <i className="fa fa-floppy-o"></i></button>
+                        <button className="btn btn-default"
+                            onClick={this.cancelUpdateRecipeCommandHandler.bind(this)}>
+                            <i className="fa fa-undo"></i></button>
+                    </div>        
                 </div>
             )
         
         }
         else{
             markp = (
-                <div>
-                    <button onClick={() => this.setState({isEditMode : true})}>edit</button>
-                    <button onClick={() => {
-                        if(window.confirm('are you sure?')){
-                            this.props.deleteCommand(this.props.recipe.id);
-                        }
-                    }}>delete</button>
-                    <div>
+                <div className="row">
+                    <div className="col-3">
                         <h1>{this.props.recipe.name}</h1>
-                        <ul>
+                    </div>
+                    <div className="col-7">
+                        <ul className="list-group">
                             {this.props.recipe.ingredients.map((i, indx) => {
-                                return <li key={indx}>{i}</li>
+                                return <li key={indx} className="list-group-item">{i}</li>
                             })}
                         </ul>
+                    </div>
+                    <div className="col-2">
+                        <button 
+                            onClick={() => this.setState({isEditMode : true})} 
+                            className="btn btn-default">
+                            <i className="fa fa-pencil"></i></button>
+                        <button className="btn btn-default"
+                            onClick={() => {
+                            if(window.confirm('are you sure?')){
+                                this.props.deleteCommand(this.props.recipe.id);
+                            }}}>
+                            <i className="fa fa-times"></i></button>
                     </div>
                 </div>
             )
