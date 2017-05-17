@@ -31,7 +31,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-//ReactDOM.render(<CamperLeaderboard />, document.querySelector('#app2Container'));
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__components_camper_leaderboard_jsx__["a" /* default */], null), document.querySelector('#app2Container'));
 
 /***/ }),
 
@@ -267,7 +267,7 @@ var CamperLeaderboard = function (_Component) {
     return CamperLeaderboard;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (CamperLeaderboard);
+/* harmony default export */ __webpack_exports__["a"] = (CamperLeaderboard);
 
 /***/ }),
 
@@ -333,7 +333,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-//ReactDOM.render(<MarkdownPreviewer />, document.querySelector('#app1Container'));
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_md_previewer_jsx__["a" /* default */], null), document.querySelector('#app1Container'));
 
 /***/ }),
 
@@ -427,7 +427,7 @@ var MarkdownPreviewer = function (_Component) {
     return MarkdownPreviewer;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (MarkdownPreviewer);
+/* harmony default export */ __webpack_exports__["a"] = (MarkdownPreviewer);
 
 /***/ }),
 
@@ -532,7 +532,6 @@ var RecipeBox = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 null,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-circle' }),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'row' },
@@ -634,66 +633,84 @@ var Recipe = function (_Component) {
             if (this.state.isEditMode) {
                 markp = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'button',
-                        { onClick: this.updateRecipeCommandHandler.bind(this) },
-                        'save'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'button',
-                        { onClick: this.cancelUpdateRecipeCommandHandler.bind(this) },
-                        'cancel'
-                    ),
+                    { className: 'row' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        null,
+                        { className: 'col-3' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', defaultValue: this.props.recipe.name, onChange: this.recipeNameChangeHandler.bind(this) })
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        null,
+                        { className: 'col-7' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { defaultValue: this.props.recipe.ingredients.join(','), onChange: this.ingredientsChangeHandler.bind(this) })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col-2' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            {
+                                onClick: this.updateRecipeCommandHandler.bind(this),
+                                className: 'btn btn-default' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-floppy-o' })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { className: 'btn btn-default',
+                                onClick: this.cancelUpdateRecipeCommandHandler.bind(this) },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-undo' })
+                        )
                     )
                 );
             } else {
                 markp = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'button',
-                        { onClick: function onClick() {
-                                return _this2.setState({ isEditMode: true });
-                            } },
-                        'edit'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'button',
-                        { onClick: function onClick() {
-                                if (window.confirm('are you sure?')) {
-                                    _this2.props.deleteCommand(_this2.props.recipe.id);
-                                }
-                            } },
-                        'delete'
-                    ),
+                    { className: 'row' },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
-                        null,
+                        { className: 'col-3' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'h1',
                             null,
                             this.props.recipe.name
-                        ),
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col-7' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'ul',
-                            null,
+                            { className: 'list-group' },
                             this.props.recipe.ingredients.map(function (i, indx) {
                                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                     'li',
-                                    { key: indx },
+                                    { key: indx, className: 'list-group-item' },
                                     i
                                 );
                             })
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col-2' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            {
+                                onClick: function onClick() {
+                                    return _this2.setState({ isEditMode: true });
+                                },
+                                className: 'btn btn-default' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-pencil' })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'button',
+                            { className: 'btn btn-default',
+                                onClick: function onClick() {
+                                    if (window.confirm('are you sure?')) {
+                                        _this2.props.deleteCommand(_this2.props.recipe.id);
+                                    }
+                                } },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'fa fa-times' })
                         )
                     )
                 );
