@@ -31,7 +31,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-//ReactDOM.render(<CamperLeaderboard />, document.querySelector('#app2Container'));
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__components_camper_leaderboard_jsx__["a" /* default */], null), document.querySelector('#app2Container'));
 
 /***/ }),
 
@@ -267,7 +267,7 @@ var CamperLeaderboard = function (_Component) {
     return CamperLeaderboard;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (CamperLeaderboard);
+/* harmony default export */ __webpack_exports__["a"] = (CamperLeaderboard);
 
 /***/ }),
 
@@ -333,7 +333,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-//ReactDOM.render(<MarkdownPreviewer />, document.querySelector('#app1Container'));
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_md_previewer_jsx__["a" /* default */], null), document.querySelector('#app1Container'));
 
 /***/ }),
 
@@ -427,7 +427,7 @@ var MarkdownPreviewer = function (_Component) {
     return MarkdownPreviewer;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (MarkdownPreviewer);
+/* harmony default export */ __webpack_exports__["a"] = (MarkdownPreviewer);
 
 /***/ }),
 
