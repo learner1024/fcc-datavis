@@ -31,7 +31,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__components_camper_leaderboard_jsx__["a" /* default */], null), document.querySelector('#app2Container'));
+//ReactDOM.render(<CamperLeaderboard />, document.querySelector('#app2Container'));
 
 /***/ }),
 
@@ -267,11 +267,280 @@ var CamperLeaderboard = function (_Component) {
     return CamperLeaderboard;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (CamperLeaderboard);
+/* unused harmony default export */ var _unused_webpack_default_export = (CamperLeaderboard);
 
 /***/ }),
 
 /***/ "./camper-leaderboard/styles/camper-leaderboard.scss":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./game-of-life/app.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_game_of_life_jsx__ = __webpack_require__("./game-of-life/components/game-of-life.jsx");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__styles_game_of_life_scss__ = __webpack_require__("./game-of-life/styles/game-of-life.scss");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__styles_game_of_life_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__styles_game_of_life_scss__);
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_game_of_life_jsx__["a" /* default */], null), document.querySelector('#app4Container'));
+
+/***/ }),
+
+/***/ "./game-of-life/components/game-of-life.jsx":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_GameOfLifeEngine_js__ = __webpack_require__("./game-of-life/lib/GameOfLifeEngine.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var GameOfLife = function (_Component) {
+    _inherits(GameOfLife, _Component);
+
+    function GameOfLife(props) {
+        _classCallCheck(this, GameOfLife);
+
+        var _this = _possibleConstructorReturn(this, (GameOfLife.__proto__ || Object.getPrototypeOf(GameOfLife)).call(this, props));
+
+        _this.rowsCount = 10;
+        _this.colsCount = 20;
+        _this.engine = new __WEBPACK_IMPORTED_MODULE_1__lib_GameOfLifeEngine_js__["a" /* default */]({
+            rows: _this.rowsCount,
+            cols: _this.colsCount
+        });
+        _this.state = {
+            grid: _this.engine.grid
+        };
+        return _this;
+    }
+
+    _createClass(GameOfLife, [{
+        key: 'cellUpdateHandler',
+        value: function cellUpdateHandler(rowIndex, colIndex) {
+            this.engine.update(rowIndex, colIndex);
+            this.setState({
+                grid: this.engine.grid
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'table',
+                    { className: 'table' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('thead', null),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'tbody',
+                        null,
+                        this.state.grid.map(function (row, rowIndex) {
+
+                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'tr',
+                                { key: rowIndex },
+                                row.map(function (col, colIndex) {
+                                    var clsName = col == __WEBPACK_IMPORTED_MODULE_1__lib_GameOfLifeEngine_js__["a" /* default */].ALIVE_CELL ? 'alive-cell' : 'dead-cell';
+                                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'td',
+                                        { key: colIndex },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                            'div',
+                                            { className: clsName, onClick: _this2.cellUpdateHandler.bind(_this2, rowIndex, colIndex) },
+                                            ' '
+                                        )
+                                    );
+                                })
+                            );
+                        })
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    { onClick: function onClick() {
+                            _this2.engine.nextGen();
+                            _this2.setState({
+                                grid: _this2.engine.grid
+                            });
+                        } },
+                    'Next Gen'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    { onClick: function onClick() {
+                            _this2.timer = setInterval(function () {
+                                _this2.engine.nextGen();
+                                _this2.setState({
+                                    grid: _this2.engine.grid
+                                });
+                            }, 1000);
+                        } },
+                    'Loop'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    { onClick: function onClick() {
+                            clearInterval(_this2.timer);
+                        } },
+                    'Pause'
+                )
+            );
+        }
+    }]);
+
+    return GameOfLife;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (GameOfLife);
+
+/***/ }),
+
+/***/ "./game-of-life/lib/GameOfLifeEngine.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var GameOfLifeEngine = function () {
+    function GameOfLifeEngine(opts) {
+        _classCallCheck(this, GameOfLifeEngine);
+
+        this.rowsCount = opts.rows || 10;
+        this.colsCount = opts.cols || 10;
+        this.grid = this.getEmptyGrid();
+    }
+
+    _createClass(GameOfLifeEngine, [{
+        key: 'getEmptyGrid',
+        value: function getEmptyGrid() {
+            var emptyGrid = [];
+            for (var rowIndex = 0; rowIndex < this.rowsCount; rowIndex++) {
+                var row = [];
+                for (var colIndex = 0; colIndex < this.colsCount; colIndex++) {
+                    row.push(GameOfLifeEngine.DEAD_CELL);
+                }
+                emptyGrid.push(row);
+            }
+            return emptyGrid;
+        }
+    }, {
+        key: 'nextGen',
+        value: function nextGen() {
+            var _this = this;
+
+            var nextGenGrid = this.getEmptyGrid();
+            this.grid.forEach(function (row, rowIndex) {
+                row.forEach(function (col, colIndex) {
+                    nextGenGrid[rowIndex][colIndex] = col;
+                    var adjacentCells = _this.getAdjacentCells(rowIndex, colIndex);
+                    var aliveAdjacentCells = adjacentCells.filter(function (cell) {
+                        return _this.grid[cell[0]][cell[1]] == GameOfLifeEngine.ALIVE_CELL;
+                    });
+                    if (col == GameOfLifeEngine.DEAD_CELL) {
+                        if (aliveAdjacentCells.length == 3) {
+                            nextGenGrid[rowIndex][colIndex] = GameOfLifeEngine.ALIVE_CELL;
+                        }
+                    } else if (col == GameOfLifeEngine.ALIVE_CELL) {
+                        if (aliveAdjacentCells.length < 2 || aliveAdjacentCells.length > 3) {
+                            nextGenGrid[rowIndex][colIndex] = GameOfLifeEngine.DEAD_CELL;
+                        }
+                    } else {
+                        console.log('Err: ' + row + ':' + col + ' neither zero nor one!');
+                    }
+                });
+            });
+
+            this.grid = nextGenGrid;
+        }
+    }, {
+        key: 'getAdjacentCells',
+        value: function getAdjacentCells(rowIndex, colIndex) {
+            var adjacentCellIndices = [];
+            var isFirstRow = rowIndex == 0,
+                isFirstCol = colIndex == 0,
+                isLastRow = rowIndex == this.rowsCount - 1,
+                isLastCol = colIndex == this.colsCount - 1;
+
+            if (!isFirstCol) {
+                adjacentCellIndices.push([rowIndex, colIndex - 1]);
+            }
+            if (!isLastCol) {
+                adjacentCellIndices.push([rowIndex, colIndex + 1]);
+            }
+            if (!isFirstRow && !isLastCol) {
+                adjacentCellIndices.push([rowIndex - 1, colIndex - 1]);
+            }
+            if (!isFirstRow) {
+                adjacentCellIndices.push([rowIndex - 1, colIndex]);
+            }
+            if (!isFirstRow && !isLastCol) {
+                adjacentCellIndices.push([rowIndex - 1, colIndex + 1]);
+            }
+            if (!isLastRow && !isFirstCol) {
+                adjacentCellIndices.push([rowIndex + 1, colIndex - 1]);
+            }
+            if (!isLastRow) {
+                adjacentCellIndices.push([rowIndex + 1, colIndex]);
+            }
+            if (!isLastRow && !isLastCol) {
+                adjacentCellIndices.push([rowIndex + 1, colIndex + 1]);
+            }
+
+            return adjacentCellIndices;
+        }
+    }, {
+        key: 'update',
+        value: function update(rowIndex, colIndex) {
+            this.grid[rowIndex][colIndex] = this.grid[rowIndex][colIndex] == GameOfLifeEngine.ALIVE_CELL ? GameOfLifeEngine.DEAD_CELL : GameOfLifeEngine.ALIVE_CELL;
+        }
+    }], [{
+        key: 'ALIVE_CELL',
+        get: function get() {
+            return 'a';
+        }
+    }, {
+        key: 'DEAD_CELL',
+        get: function get() {
+            return 'd';
+        }
+    }]);
+
+    return GameOfLifeEngine;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (GameOfLifeEngine);
+
+/***/ }),
+
+/***/ "./game-of-life/styles/game-of-life.scss":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -333,7 +602,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_md_previewer_jsx__["a" /* default */], null), document.querySelector('#app1Container'));
+//ReactDOM.render(<MarkdownPreviewer />, document.querySelector('#app1Container'));
 
 /***/ }),
 
@@ -427,7 +696,7 @@ var MarkdownPreviewer = function (_Component) {
     return MarkdownPreviewer;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (MarkdownPreviewer);
+/* unused harmony default export */ var _unused_webpack_default_export = (MarkdownPreviewer);
 
 /***/ }),
 
@@ -455,7 +724,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_recipe_box_jsx__["a" /* default */], null), document.querySelector('#app3Container'));
+//ReactDOM.render(<RecipeBox />, document.querySelector('#app3Container'));
 
 /***/ }),
 
@@ -563,7 +832,7 @@ var RecipeBox = function (_Component) {
     return RecipeBox;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* harmony default export */ __webpack_exports__["a"] = (RecipeBox);
+/* unused harmony default export */ var _unused_webpack_default_export = (RecipeBox);
 
 /***/ }),
 
@@ -812,7 +1081,8 @@ var RecipeStore = function () {
 __webpack_require__("./landing/app.js");
 __webpack_require__("./camper-leaderboard/app.js");
 __webpack_require__("./md-previewer/app.js");
-module.exports = __webpack_require__("./recipe-box/app.js");
+__webpack_require__("./recipe-box/app.js");
+module.exports = __webpack_require__("./game-of-life/app.js");
 
 
 /***/ })
