@@ -27,10 +27,10 @@ class GameOfLifeEngine{
         this.grid.forEach((row, rowIndex) => {
             row.forEach((col, colIndex) => {
                 nextGenGrid[rowIndex][colIndex] = col;
-                let adjacentCells = this.getAdjacentCells(rowIndex, colIndex)
+                let adjacentCells = this.getAdjacentCells(rowIndex, colIndex);
                 let aliveAdjacentCells = adjacentCells.filter((cell) => {
                     return this.grid[cell[0]][cell[1]] == GameOfLifeEngine.ALIVE_CELL;
-                })
+                });
                 if(col == GameOfLifeEngine.DEAD_CELL){
                     if(aliveAdjacentCells.length == 3){
                         nextGenGrid[rowIndex][colIndex] = GameOfLifeEngine.ALIVE_CELL;
@@ -42,9 +42,9 @@ class GameOfLifeEngine{
                     }
                 }
                 else{
-                    console.log(`Err: ${row}:${col} neither zero nor one!`)
+                    console.log(`Err: ${row}:${col} neither zero nor one!`);
                 }
-            })
+            });
         });
 
         this.grid = nextGenGrid;
@@ -52,9 +52,9 @@ class GameOfLifeEngine{
     getAdjacentCells(rowIndex, colIndex){
         let adjacentCellIndices = [];
         let isFirstRow = rowIndex == 0, 
-        isFirstCol = colIndex == 0, 
-        isLastRow = rowIndex == this.rowsCount - 1, 
-        isLastCol = colIndex == this.colsCount - 1; 
+            isFirstCol = colIndex == 0, 
+            isLastRow = rowIndex == this.rowsCount - 1, 
+            isLastCol = colIndex == this.colsCount - 1; 
 
         if(!isFirstCol){
             adjacentCellIndices.push([rowIndex, colIndex - 1]);
