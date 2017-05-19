@@ -1,15 +1,22 @@
 class GameOfLifeEngine{
+    
     constructor(opts){
         this.rowsCount = opts.rows || 10;
         this.colsCount = opts.cols || 10;
         this.grid = this.getEmptyGrid();
+    }
+    static get ALIVE_CELL(){
+        return 'a';
+    }
+    static get DEAD_CELL(){
+        return 'd';
     }
     getEmptyGrid(){
         let emptyGrid = [];
         for(var rowIndex = 0; rowIndex < this.rowsCount; rowIndex ++){
             let row = [];
             for(var colIndex = 0; colIndex < this.colsCount; colIndex++){
-                row.push(0);
+                row.push(GameOfLifeEngine.DEAD_CELL);
             }
             emptyGrid.push(row);
         }
@@ -17,23 +24,21 @@ class GameOfLifeEngine{
     }
     nextGen(){
         let nextGenGrid = this.getEmptyGrid();
-
-        //get alive cells
         this.grid.forEach((row, rowIndex) => {
             row.forEach((col, colIndex) => {
                 nextGenGrid[rowIndex][colIndex] = col;
                 let adjacentCells = this.getAdjacentCells(rowIndex, colIndex)
                 let aliveAdjacentCells = adjacentCells.filter((cell) => {
-                    return this.grid[cell[0]][cell[1]] == 1;
+                    return this.grid[cell[0]][cell[1]] == GameOfLifeEngine.ALIVE_CELL;
                 })
-                if(col == 0){
+                if(col == GameOfLifeEngine.DEAD_CELL){
                     if(aliveAdjacentCells.length == 3){
-                        nextGenGrid[rowIndex][colIndex] = 1;
+                        nextGenGrid[rowIndex][colIndex] = GameOfLifeEngine.ALIVE_CELL;
                     }
                 }
-                else if (col == 1){
+                else if (col == GameOfLifeEngine.ALIVE_CELL){
                     if(aliveAdjacentCells.length < 2 || aliveAdjacentCells.length > 3){
-                        nextGenGrid[rowIndex][colIndex] = 0;
+                        nextGenGrid[rowIndex][colIndex] = GameOfLifeEngine.DEAD_CELL;
                     }
                 }
                 else{
@@ -78,18 +83,9 @@ class GameOfLifeEngine{
 
         return adjacentCellIndices;
     }
-    // start(){
-    //     //this.timer = setInterval(() => {
-    //         this.nextGen();
-    //     //}, 1000);
-    //     //keep running logic, until pause or stop
-    // }
-    // pause(){
-    //     //clearInterval(this.timer);
-    // }
 
     update(rowIndex, colIndex){
-        this.grid[rowIndex][colIndex] = this.grid[rowIndex][colIndex] == 1 ? 0 : 1;
+        this.grid[rowIndex][colIndex] = this.grid[rowIndex][colIndex] == GameOfLifeEngine.ALIVE_CELL ? GameOfLifeEngine.DEAD_CELL : GameOfLifeEngine.ALIVE_CELL;
     }
 
 }
