@@ -40,6 +40,7 @@ class GameOfLife extends Component{
                     )
                 })}
                 <br />
+                
                 <button onClick={() => {
                     this.engine.nextGen();
                     this.setState({
@@ -47,16 +48,28 @@ class GameOfLife extends Component{
                     });
                 }} >Next Gen</button>
                 <button onClick={() => {
+                    clearInterval(this.timer);
                     this.timer = setInterval(() => {
                         this.engine.nextGen();
                         this.setState({
                             grid: this.engine.grid 
                         });
-                    }, 500);                  
+                    }, 500);
+                                      
                 }} >Loop</button>
                 <button onClick={() => {
                     clearInterval(this.timer);
                 }} >Pause</button>
+                <button onClick={() => {
+                    if(this.timer){
+                        clearInterval(this.timer);
+                    }
+                    this.engine.reset();
+                    this.setState({
+                        grid: this.engine.grid 
+                    });
+                }} >Clear</button>
+                <span>Gen Count : {this.engine.genCount}</span>
             </div>
         )
     }

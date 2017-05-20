@@ -378,6 +378,7 @@ var GameOfLife = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'button',
                     { onClick: function onClick() {
+                            clearInterval(_this2.timer);
                             _this2.timer = setInterval(function () {
                                 _this2.engine.nextGen();
                                 _this2.setState({
@@ -393,6 +394,25 @@ var GameOfLife = function (_Component) {
                             clearInterval(_this2.timer);
                         } },
                     'Pause'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    { onClick: function onClick() {
+                            if (_this2.timer) {
+                                clearInterval(_this2.timer);
+                            }
+                            _this2.engine.reset();
+                            _this2.setState({
+                                grid: _this2.engine.grid
+                            });
+                        } },
+                    'Clear'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'span',
+                    null,
+                    'Gen Count : ',
+                    this.engine.genCount
                 )
             );
         }
@@ -420,6 +440,7 @@ var GameOfLifeEngine = function () {
         this.rowsCount = opts.rows || 10;
         this.colsCount = opts.cols || 10;
         this.grid = this.getEmptyGrid();
+        this._genCount = 0;
     }
 
     _createClass(GameOfLifeEngine, [{
@@ -463,6 +484,7 @@ var GameOfLifeEngine = function () {
             });
 
             this.grid = nextGenGrid;
+            this._genCount++;
         }
     }, {
         key: 'getAdjacentCells',
@@ -504,6 +526,17 @@ var GameOfLifeEngine = function () {
         key: 'update',
         value: function update(rowIndex, colIndex) {
             this.grid[rowIndex][colIndex] = this.grid[rowIndex][colIndex] == GameOfLifeEngine.ALIVE_CELL ? GameOfLifeEngine.DEAD_CELL : GameOfLifeEngine.ALIVE_CELL;
+        }
+    }, {
+        key: 'reset',
+        value: function reset() {
+            this.grid = this.getEmptyGrid();
+            this._genCount = 0;
+        }
+    }, {
+        key: 'genCount',
+        get: function get() {
+            return this._genCount;
         }
     }], [{
         key: 'ALIVE_CELL',

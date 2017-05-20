@@ -4,12 +4,16 @@ class GameOfLifeEngine{
         this.rowsCount = opts.rows || 10;
         this.colsCount = opts.cols || 10;
         this.grid = this.getEmptyGrid();
+        this._genCount = 0;
     }
     static get ALIVE_CELL(){
         return 'a';
     }
     static get DEAD_CELL(){
         return 'd';
+    }
+    get genCount(){
+        return this._genCount;
     }
     getEmptyGrid(){
         let emptyGrid = [];
@@ -48,6 +52,7 @@ class GameOfLifeEngine{
         });
 
         this.grid = nextGenGrid;
+        this._genCount++;
     }
     getAdjacentCells(rowIndex, colIndex){
         let adjacentCellIndices = [];
@@ -86,6 +91,10 @@ class GameOfLifeEngine{
 
     update(rowIndex, colIndex){
         this.grid[rowIndex][colIndex] = this.grid[rowIndex][colIndex] == GameOfLifeEngine.ALIVE_CELL ? GameOfLifeEngine.DEAD_CELL : GameOfLifeEngine.ALIVE_CELL;
+    }
+    reset(){
+        this.grid = this.getEmptyGrid();
+        this._genCount = 0;
     }
 
 }
