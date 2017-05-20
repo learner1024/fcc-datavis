@@ -1,20 +1,19 @@
 #app4Container {
-    table{
-        tbody{
-            tr{
-                td{
-                    div{
-                        width: 20px;
-                        height: 20px;
-                    }
-                    div.alive-cell{
-                        background-color: lightgreen;
-                    }
-                    div.dead-cell{
-                        background-color: lightcoral;
-                    }
-                }
-            }
+
+    div.grid-row{
+        margin: 0;
+        padding: 0;
+        height: 20px;
+        div.cell{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+        }
+        div.alive-cell{
+            background-color: lightgreen;
+        }
+        div.dead-cell{
+            background-color: lightcoral;
         }
     }
 }

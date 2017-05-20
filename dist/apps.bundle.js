@@ -31,7 +31,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-//ReactDOM.render(<CamperLeaderboard />, document.querySelector('#app2Container'));
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_0__components_camper_leaderboard_jsx__["a" /* default */], null), document.querySelector('#app2Container'));
 
 /***/ }),
 
@@ -267,7 +267,7 @@ var CamperLeaderboard = function (_Component) {
     return CamperLeaderboard;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (CamperLeaderboard);
+/* harmony default export */ __webpack_exports__["a"] = (CamperLeaderboard);
 
 /***/ }),
 
@@ -325,8 +325,8 @@ var GameOfLife = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (GameOfLife.__proto__ || Object.getPrototypeOf(GameOfLife)).call(this, props));
 
-        _this.rowsCount = 10;
-        _this.colsCount = 20;
+        _this.rowsCount = 40;
+        _this.colsCount = 40;
         _this.engine = new __WEBPACK_IMPORTED_MODULE_1__lib_GameOfLifeEngine_js__["a" /* default */]({
             rows: _this.rowsCount,
             cols: _this.colsCount
@@ -353,34 +353,18 @@ var GameOfLife = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 null,
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    'table',
-                    { className: 'table' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('thead', null),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'tbody',
-                        null,
-                        this.state.grid.map(function (row, rowIndex) {
+                this.state.grid.map(function (row, rowIndex) {
 
-                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'tr',
-                                { key: rowIndex },
-                                row.map(function (col, colIndex) {
-                                    var clsName = col == __WEBPACK_IMPORTED_MODULE_1__lib_GameOfLifeEngine_js__["a" /* default */].ALIVE_CELL ? 'alive-cell' : 'dead-cell';
-                                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                        'td',
-                                        { key: colIndex },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                            'div',
-                                            { className: clsName, onClick: _this2.cellUpdateHandler.bind(_this2, rowIndex, colIndex) },
-                                            ' '
-                                        )
-                                    );
-                                })
-                            );
+                    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'grid-row', key: rowIndex },
+                        row.map(function (col, colIndex) {
+                            var clsName = col == __WEBPACK_IMPORTED_MODULE_1__lib_GameOfLifeEngine_js__["a" /* default */].ALIVE_CELL ? 'cell alive-cell' : 'cell dead-cell';
+                            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: clsName, key: colIndex, onClick: _this2.cellUpdateHandler.bind(_this2, rowIndex, colIndex) });
                         })
-                    )
-                ),
+                    );
+                }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'button',
                     { onClick: function onClick() {
@@ -399,7 +383,7 @@ var GameOfLife = function (_Component) {
                                 _this2.setState({
                                     grid: _this2.engine.grid
                                 });
-                            }, 1000);
+                            }, 500);
                         } },
                     'Loop'
                 ),
@@ -602,7 +586,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-//ReactDOM.render(<MarkdownPreviewer />, document.querySelector('#app1Container'));
+__WEBPACK_IMPORTED_MODULE_3_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_md_previewer_jsx__["a" /* default */], null), document.querySelector('#app1Container'));
 
 /***/ }),
 
@@ -696,7 +680,7 @@ var MarkdownPreviewer = function (_Component) {
     return MarkdownPreviewer;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (MarkdownPreviewer);
+/* harmony default export */ __webpack_exports__["a"] = (MarkdownPreviewer);
 
 /***/ }),
 
@@ -724,7 +708,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-//ReactDOM.render(<RecipeBox />, document.querySelector('#app3Container'));
+__WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_recipe_box_jsx__["a" /* default */], null), document.querySelector('#app3Container'));
 
 /***/ }),
 
@@ -832,7 +816,7 @@ var RecipeBox = function (_Component) {
     return RecipeBox;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (RecipeBox);
+/* harmony default export */ __webpack_exports__["a"] = (RecipeBox);
 
 /***/ }),
 

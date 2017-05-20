@@ -4,8 +4,8 @@ import GameOfLifeEngine from '../lib/GameOfLifeEngine.js';
 class GameOfLife extends Component{
     constructor(props){
         super(props);
-        this.rowsCount = 10;
-        this.colsCount = 20;
+        this.rowsCount = 40;
+        this.colsCount = 40;
         this.engine = new GameOfLifeEngine({
             rows : this.rowsCount,
             cols : this.colsCount
@@ -23,29 +23,23 @@ class GameOfLife extends Component{
     render(){
         return (
             <div>
-                <table className="table">
-                    <thead>
-                    </thead>
-                    <tbody>
-                        {this.state.grid.map((row, rowIndex) => {
+                {this.state.grid.map((row, rowIndex) => {
 
-                            return (
-                                <tr key={rowIndex}>
-                                    {
-                                        row.map((col, colIndex) => {
-                                            let clsName = col == GameOfLifeEngine.ALIVE_CELL ? 'alive-cell' : 'dead-cell'
-                                            return(
-                                                <td key={colIndex}>
-                                                    <div className={clsName} onClick={this.cellUpdateHandler.bind(this, rowIndex, colIndex)}> </div>
-                                                </td>
-                                            )
-                                        })
-                                    }
-                                </tr>
-                            )
-                        })}
-                    </tbody>
-                </table>
+                    return (
+                        <div className='grid-row' key={rowIndex}>
+                            {
+                                row.map((col, colIndex) => {
+                                    let clsName = col == GameOfLifeEngine.ALIVE_CELL ? 'cell alive-cell' : 'cell dead-cell'
+                                    return(
+                                        <div className={clsName} key={colIndex} onClick={this.cellUpdateHandler.bind(this, rowIndex, colIndex)}>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    )
+                })}
+                <br />
                 <button onClick={() => {
                     this.engine.nextGen();
                     this.setState({
@@ -58,13 +52,12 @@ class GameOfLife extends Component{
                         this.setState({
                             grid: this.engine.grid 
                         });
-                    }, 1000);                  
+                    }, 500);                  
                 }} >Loop</button>
                 <button onClick={() => {
                     clearInterval(this.timer);
                 }} >Pause</button>
             </div>
-
         )
     }
 }

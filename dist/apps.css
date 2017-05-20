@@ -2368,12 +2368,15 @@
     margin: 5%;
     width: 90%;
     height: 50vh; }
-#app4Container table tbody tr td div {
-  width: 20px;
+#app4Container div.grid-row {
+  margin: 0;
+  padding: 0;
   height: 20px; }
-
-#app4Container table tbody tr td div.alive-cell {
-  background-color: lightgreen; }
-
-#app4Container table tbody tr td div.dead-cell {
-  background-color: lightcoral; }
+  #app4Container div.grid-row div.cell {
+    display: inline-block;
+    width: 20px;
+    height: 20px; }
+  #app4Container div.grid-row div.alive-cell {
+    background-color: lightgreen; }
+  #app4Container div.grid-row div.dead-cell {
+    background-color: lightcoral; }
