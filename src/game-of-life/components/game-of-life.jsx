@@ -23,6 +23,7 @@ class GameOfLife extends Component{
     render(){
         return (
             <div>
+                <h1>Game of Life</h1>
                 {this.state.grid.map((row, rowIndex) => {
 
                     return (

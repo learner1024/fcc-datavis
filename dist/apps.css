@@ -22,6 +22,9 @@
     margin-left: 0; }
   .sidebar .nav-link {
     border-radius: 0; }
+
+.app-container {
+  margin-bottom: 50vh; }
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)

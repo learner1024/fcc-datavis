@@ -353,6 +353,11 @@ var GameOfLife = function (_Component) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h1',
+                    null,
+                    'Game of Life'
+                ),
                 this.state.grid.map(function (row, rowIndex) {
 
                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
