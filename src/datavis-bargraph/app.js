@@ -7,8 +7,8 @@ class BarGraph extends Component{
         super(props);
     }
     componentDidMount(){
-        const square = d3.selectAll("rect");
-        square.style("fill", "orange");
+        const square = d3.selectAll('rect');
+        square.style('fill', 'orange');
     }
     render(){
         return (
