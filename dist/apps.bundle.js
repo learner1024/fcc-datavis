@@ -278,6 +278,64 @@ var CamperLeaderboard = function (_Component) {
 
 /***/ }),
 
+/***/ "./datavis-bargraph/app.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3__ = __webpack_require__("../node_modules/d3/build/d3.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_d3__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var BarGraph = function (_Component) {
+    _inherits(BarGraph, _Component);
+
+    function BarGraph(props) {
+        _classCallCheck(this, BarGraph);
+
+        return _possibleConstructorReturn(this, (BarGraph.__proto__ || Object.getPrototypeOf(BarGraph)).call(this, props));
+    }
+
+    _createClass(BarGraph, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var square = __WEBPACK_IMPORTED_MODULE_2_d3__["selectAll"]("rect");
+            square.style("fill", "orange");
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'svg',
+                { width: this.props.width, height: this.props.height },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { x: '20', y: '20', width: '20px', height: '20', rx: '5', ry: '5' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { x: '60', y: '20', width: '20px', height: '20', rx: '5', ry: '5' }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { x: '100', y: '20', width: '20px', height: '20', rx: '5', ry: '5' })
+            );
+        }
+    }]);
+
+    return BarGraph;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BarGraph, { width: '300px', height: '150px' }), document.querySelector('#app5Container'));
+
+/***/ }),
+
 /***/ "./game-of-life/app.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1104,7 +1162,8 @@ __webpack_require__("./landing/app.js");
 __webpack_require__("./camper-leaderboard/app.js");
 __webpack_require__("./md-previewer/app.js");
 __webpack_require__("./recipe-box/app.js");
-module.exports = __webpack_require__("./game-of-life/app.js");
+__webpack_require__("./game-of-life/app.js");
+module.exports = __webpack_require__("./datavis-bargraph/app.js");
 
 
 /***/ })

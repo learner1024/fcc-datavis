@@ -38,7 +38,7 @@ const commonPlugins = [
 const commonConfig = {
     context: PATHS.src,
     entry: {
-        apps: ['./landing/app.js', './camper-leaderboard/app.js', './md-previewer/app.js', './recipe-box/app.js', './game-of-life/app.js'],
+        apps: ['./landing/app.js', './camper-leaderboard/app.js', './md-previewer/app.js', './recipe-box/app.js', './game-of-life/app.js', './datavis-bargraph/app.js'],
         fx: [
             'react', 
             'react-dom', 
@@ -48,6 +48,7 @@ const commonConfig = {
             'bootstrap/dist/js/bootstrap.min.js', 
             'tether/dist/js/tether.min.js', 
             'jquery/dist/jquery.slim.min.js',
+            'd3',
         ],
     },
     module: {
