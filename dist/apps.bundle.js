@@ -287,6 +287,73 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_bar_graph_component_jsx__ = __webpack_require__("./datavis-bargraph/components/bar-graph-component.jsx");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+var BarGraph = function (_Component) {
+    _inherits(BarGraph, _Component);
+
+    _createClass(BarGraph, [{
+        key: 'retrieveDataForBarGraph',
+        value: function retrieveDataForBarGraph() {
+            var _this2 = this;
+
+            fetch('/data/us-gdp.json').then(function (response) {
+                return response.json();
+            }).then(function (jsonData) {
+                _this2.setState({
+                    data: jsonData.data
+                });
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    }]);
+
+    function BarGraph(props) {
+        _classCallCheck(this, BarGraph);
+
+        //fetch data
+        var _this = _possibleConstructorReturn(this, (BarGraph.__proto__ || Object.getPrototypeOf(BarGraph)).call(this, props));
+
+        _this.state = { data: [] };
+        _this.retrieveDataForBarGraph();
+        return _this;
+    }
+
+    _createClass(BarGraph, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_bar_graph_component_jsx__["a" /* default */], { barData: this.state.data });
+        }
+    }]);
+
+    return BarGraph;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BarGraph, null), document.querySelector('#app5Container'));
+
+/***/ }),
+
+/***/ "./datavis-bargraph/components/bar-graph-component.jsx":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3__ = __webpack_require__("../node_modules/d3/build/d3.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_d3__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -301,38 +368,39 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var BarGraph = function (_Component) {
-    _inherits(BarGraph, _Component);
+var BarGraphComponent = function (_Component) {
+    _inherits(BarGraphComponent, _Component);
 
-    function BarGraph(props) {
-        _classCallCheck(this, BarGraph);
+    function BarGraphComponent(props) {
+        _classCallCheck(this, BarGraphComponent);
 
-        return _possibleConstructorReturn(this, (BarGraph.__proto__ || Object.getPrototypeOf(BarGraph)).call(this, props));
+        return _possibleConstructorReturn(this, (BarGraphComponent.__proto__ || Object.getPrototypeOf(BarGraphComponent)).call(this, props));
     }
 
-    _createClass(BarGraph, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var square = __WEBPACK_IMPORTED_MODULE_2_d3__["selectAll"]("rect");
-            square.style("fill", "orange");
-        }
-    }, {
+    _createClass(BarGraphComponent, [{
         key: 'render',
         value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'svg',
-                { width: this.props.width, height: this.props.height },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { x: '20', y: '20', width: '20px', height: '20', rx: '5', ry: '5' }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { x: '60', y: '20', width: '20px', height: '20', rx: '5', ry: '5' }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('rect', { x: '100', y: '20', width: '20px', height: '20', rx: '5', ry: '5' })
-            );
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', { width: '100%', height: '90vh' });
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            var thisNode = __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.findDOMNode(this);
+
+            var svg = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).selectAll('line').data(this.props.barData).enter().append('line').attr('x1', 0).attr('y1', function (d, i) {
+                return i * 5;
+            }).attr('x2', function (d) {
+                return d[1];
+            }).attr('y2', function (d, i) {
+                return i * 5;
+            }).attr('stroke', 'black').attr('stroke-width', 30.5);
         }
     }]);
 
-    return BarGraph;
+    return BarGraphComponent;
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BarGraph, { width: '300px', height: '150px' }), document.querySelector('#app5Container'));
+/* harmony default export */ __webpack_exports__["a"] = (BarGraphComponent);
 
 /***/ }),
 
