@@ -11,12 +11,12 @@ class BarGraph extends Component{
             })
             .then((jsonData) => {
                 this.setState({
-                    data: jsonData.data
+                    data: jsonData.data,
                 });
             })
             .catch((err) => {
                 console.log(err);
-            })
+            });
     }
     constructor(props){
         super(props);
