@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import * as d3 from 'd3';
 
-import SvgHorizLine from './components/svg-horiz-line.jsx';
+import BarGraphComponent from './components/bar-graph-component.jsx';
 
 class BarGraph extends Component{
     retrieveDataForBarGraph(){
@@ -25,21 +24,12 @@ class BarGraph extends Component{
         this.state = {data: []};
         this.retrieveDataForBarGraph();
     }
-    componentDidMount(){
-        const square = d3.selectAll('rect');
-        square.style('fill', 'orange');
-    }
+    
     render(){
-        let distBetweenLines = 5;
-
         return (
-            <svg width={this.props.width} height={this.props.height}>
-                {this.state.data.map((d, i) => {
-                    return (<SvgHorizLine key={i} x1='0' y1={i * distBetweenLines} x2={d[1]} y2={i * distBetweenLines} />)
-                })}
-            </svg>
+            <BarGraphComponent barData={this.state.data} />                   
         );
     }
 }
 
-ReactDOM.render(<BarGraph width='1000' height='1000' />, document.querySelector('#app5Container'));
+ReactDOM.render(<BarGraph />, document.querySelector('#app5Container'));
