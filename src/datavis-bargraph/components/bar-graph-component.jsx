@@ -8,9 +8,11 @@ class BarGraphComponent extends Component{
 
     }
     render(){
-        return (<svg width='100%' height='90vh'></svg>)
+        return (<svg width='1000' height='1000'></svg>)
     }
     componentDidUpdate(){
+        let vals = this.props.barData.map((d) => d.gdpValue);
+        let myScale = d3.scaleLinear().domain([0, Math.max(...vals)]).range([0, 500]);
         let thisNode = ReactDOM.findDOMNode(this);
 
         let svg = d3.select(thisNode)
@@ -19,11 +21,11 @@ class BarGraphComponent extends Component{
             .enter()
             .append('line')
                 .attr('x1', 0)
-                .attr('y1', (d, i) => i * 5)
-                .attr('x2', (d) => (d[1]))
-                .attr('y2', (d, i) => i * 5)
+                .attr('y1', (d, i) => i * 2)
+                .attr('x2', (d) => myScale(d.gdpValue))
+                .attr('y2', (d, i) => i * 2)
                 .attr('stroke', 'black')
-                .attr('stroke-width', 30.5)
+                .attr('stroke-width', 0.2)
     }
 }
 

@@ -10,8 +10,11 @@ class BarGraph extends Component{
                 return response.json();
             })
             .then((jsonData) => {
+                console.log(jsonData);
                 this.setState({
-                    data: jsonData.data,
+                    data: jsonData.data.map((d) => {
+                        return {'quarterStartDate' : d[0], 'gdpValue': d[1]};
+                    }),
                 });
             })
             .catch((err) => {
