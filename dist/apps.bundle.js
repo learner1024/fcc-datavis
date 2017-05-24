@@ -309,7 +309,7 @@ var BarGraph = function (_Component) {
         value: function retrieveDataForBarGraph() {
             var _this2 = this;
 
-            fetch('data/us-gdp.json').then(function (response) {
+            fetch('fcc-datavis/data/us-gdp.json').then(function (response) {
                 return response.json();
             }).then(function (jsonData) {
                 _this2.setState({
@@ -394,6 +394,20 @@ var BarGraphComponent = function (_Component) {
     }
 
     _createClass(BarGraphComponent, [{
+        key: 'getQuarterString',
+        value: function getQuarterString(m) {
+            var ret = '';
+            if (m < 3) {
+                ret = 'Q1';
+            } else if (m < 6) {
+                ret = 'Q2';
+            } else if (m < 9) {
+                ret = 'Q3';
+            } else ret = 'Q4';
+
+            return ret;
+        }
+    }, {
         key: 'render',
         value: function render() {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -406,6 +420,8 @@ var BarGraphComponent = function (_Component) {
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate() {
+            var _this2 = this;
+
             var thisNode = __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.findDOMNode(this);
 
             var tooltipWidth = 50;
@@ -451,7 +467,7 @@ var BarGraphComponent = function (_Component) {
             }).attr('fill', 'teal').on('mouseover', function (d, i) {
                 var mouseCoords = __WEBPACK_IMPORTED_MODULE_2_d3__["mouse"](__WEBPACK_IMPORTED_MODULE_2_d3__["event"].currentTarget);
                 tooltipBox.transition().duration(200).style('opacity', 0.9);
-                tooltipBox.html('<span>' + d.gdpValue + '</span>').style('left', mouseCoords[0] + 'px').style('top', mouseCoords[1] + 'px');
+                tooltipBox.html('<span>' + d.quarterStartDate.getFullYear() + ' - ' + _this2.getQuarterString(d.quarterStartDate.getMonth()) + ' : ' + d.gdpValue + '</span>').style('left', mouseCoords[0] + 'px').style('top', mouseCoords[1] + 'px');
             }).on('mouseout', function (d, i) {
                 tooltipBox.transition().duration(500).style('opacity', 0);
             });

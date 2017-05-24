@@ -4,9 +4,26 @@ import * as d3 from 'd3';
 
 import '../styles/bar-graph-styles.scss';
 
+
+
 class BarGraphComponent extends Component{
     constructor(props){
         super(props);
+    }
+    getQuarterString(m){
+        let ret = '';
+        if(m < 3){
+            ret = 'Q1';
+        }
+        else if(m < 6){
+            ret = 'Q2';
+        }
+        else if(m < 9){
+            ret = 'Q3';
+        }
+        else ret = 'Q4';
+
+        return ret;
     }
     render(){
         return (<div><svg></svg><div className='graph-tooltip'></div></div>)
@@ -72,7 +89,7 @@ class BarGraphComponent extends Component{
                     tooltipBox.transition()
                         .duration(200)
                         .style('opacity', 0.9)
-                    tooltipBox.html('<span>'+ d.gdpValue +'</span>')
+                    tooltipBox.html(`<span>${d.quarterStartDate.getFullYear()} - ${this.getQuarterString(d.quarterStartDate.getMonth())} : ${d.gdpValue}</span>`)
                         .style('left', mouseCoords[0] + 'px')
                         .style('top', mouseCoords[1] + 'px')
                 })
