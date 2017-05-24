@@ -309,7 +309,7 @@ var BarGraph = function (_Component) {
         value: function retrieveDataForBarGraph() {
             var _this2 = this;
 
-            fetch('fcc-datavis/data/us-gdp.json').then(function (response) {
+            fetch('data/us-gdp.json').then(function (response) {
                 return response.json();
             }).then(function (jsonData) {
                 _this2.setState({
