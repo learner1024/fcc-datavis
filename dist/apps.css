@@ -2384,3 +2384,11 @@
     background-color: lightgreen; }
   #app4Container div.grid-row div.dead-cell {
     background-color: lightcoral; }
+.bar:hover {
+  opacity: 0.5; }
+
+.graph-tooltip {
+  position: absolute;
+  background-color: grey;
+  border-radius: 5px;
+  color: white; }

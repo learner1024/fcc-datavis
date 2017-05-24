@@ -12,7 +12,7 @@ class BarGraph extends Component{
             .then((jsonData) => {
                 this.setState({
                     data: jsonData.data.map((d) => {
-                        return {'quarterStartDate' : d[0], 'gdpValue': d[1]};
+                        return {'quarterStartDate' : new Date(d[0]), 'gdpValue': +d[1]};
                     }),
                 });
             })
@@ -29,7 +29,12 @@ class BarGraph extends Component{
     
     render(){
         return (
-            <BarGraphComponent barData={this.state.data} />                   
+            <div>
+                <h1>Gross Domestic Product - US</h1>
+                <br />
+                <BarGraphComponent barData={this.state.data} />                   
+            </div>
+            
         );
     }
 }

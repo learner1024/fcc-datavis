@@ -314,7 +314,7 @@ var BarGraph = function (_Component) {
             }).then(function (jsonData) {
                 _this2.setState({
                     data: jsonData.data.map(function (d) {
-                        return { 'quarterStartDate': d[0], 'gdpValue': d[1] };
+                        return { 'quarterStartDate': new Date(d[0]), 'gdpValue': +d[1] };
                     })
                 });
             }).catch(function (err) {
@@ -337,7 +337,17 @@ var BarGraph = function (_Component) {
     _createClass(BarGraph, [{
         key: 'render',
         value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_bar_graph_component_jsx__["a" /* default */], { barData: this.state.data });
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h1',
+                    null,
+                    'Gross Domestic Product - US'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_bar_graph_component_jsx__["a" /* default */], { barData: this.state.data })
+            );
         }
     }]);
 
@@ -358,6 +368,8 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3__ = __webpack_require__("../node_modules/d3/build/d3.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_d3__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__styles_bar_graph_styles_scss__ = __webpack_require__("./datavis-bargraph/styles/bar-graph-styles.scss");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__styles_bar_graph_styles_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__styles_bar_graph_styles_scss__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -365,6 +377,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
 
 
 
@@ -382,13 +396,24 @@ var BarGraphComponent = function (_Component) {
     _createClass(BarGraphComponent, [{
         key: 'render',
         value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', null);
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'graph-tooltip' })
+            );
         }
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate() {
             var thisNode = __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.findDOMNode(this);
-            var svg = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode);
+
+            var tooltipWidth = 50;
+            var tooltipHeight = 30;
+
+            var tooltipBox = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('.graph-tooltip').style('width', tooltipWidth).style('height', tooltipHeight).style('opacity', 0);
+
+            var svg = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('svg');
 
             var svgWidth = 960;
             var svgHeight = 500;
@@ -397,38 +422,39 @@ var BarGraphComponent = function (_Component) {
             var graphWidth = svgWidth - margin.right - margin.left;
             var graphHeight = svgHeight - margin.top - margin.bottom;
 
-            var minGdp = __WEBPACK_IMPORTED_MODULE_2_d3__["min"](this.props.barData, function (d) {
+            var gdpExtent = __WEBPACK_IMPORTED_MODULE_2_d3__["extent"](this.props.barData, function (d) {
                 return d.gdpValue;
             });
-            var minTime = __WEBPACK_IMPORTED_MODULE_2_d3__["min"](this.props.barData, function (d) {
-                return new Date(d.quarterStartDate);
-            });
-            var maxGdp = __WEBPACK_IMPORTED_MODULE_2_d3__["max"](this.props.barData, function (d) {
-                return d.gdpValue;
-            });
-            var maxTime = __WEBPACK_IMPORTED_MODULE_2_d3__["max"](this.props.barData, function (d) {
-                return new Date(d.quarterStartDate);
+            var timeExtent = __WEBPACK_IMPORTED_MODULE_2_d3__["extent"](this.props.barData, function (d) {
+                return d.quarterStartDate;
             });
 
-            var xScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleTime"]().domain([minTime, maxTime]).range([0, graphWidth]);
-            var yScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleLinear"]().domain([minGdp, maxGdp]).range([graphHeight, 0]);
+            var xScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleTime"]().domain(timeExtent).range([0, graphWidth]);
+            var yScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleLinear"]().domain(gdpExtent).range([graphHeight, 0]);
 
             var xAxis = __WEBPACK_IMPORTED_MODULE_2_d3__["axisBottom"](xScale);
             var yAxis = __WEBPACK_IMPORTED_MODULE_2_d3__["axisLeft"](yScale);
 
             svg.attr('width', svgWidth).attr('height', svgHeight);
+
             var container = svg.append('g').attr('class', 'graph-container');
             container.append("g").attr('class', 'axis x').attr("transform", 'translate(' + margin.left + ', ' + (margin.right + graphHeight) + ')').call(xAxis);
             container.append("g").attr('class', 'axis y').attr("transform", 'translate(' + margin.left + ', ' + margin.right + ')').call(yAxis);
 
             var rectWidth = Math.ceil(graphWidth / this.props.barData.length);
-            container.selectAll('rect').data(this.props.barData).enter().append('rect').attr('x', function (d) {
-                return margin.left + xScale(new Date(d.quarterStartDate));
-            }).attr('y', function (d, i) {
+            container.selectAll('rect').data(this.props.barData).enter().append('rect').attr('class', 'bar').attr('x', function (d) {
+                return margin.left + xScale(d.quarterStartDate);
+            }).attr('y', function (d) {
                 return yScale(d.gdpValue);
             }).attr('width', rectWidth).attr('height', function (d) {
                 return margin.top + graphHeight - yScale(d.gdpValue);
-            }).attr('fill', 'grey');
+            }).attr('fill', 'teal').on('mouseover', function (d, i) {
+                var mouseCoords = __WEBPACK_IMPORTED_MODULE_2_d3__["mouse"](__WEBPACK_IMPORTED_MODULE_2_d3__["event"].currentTarget);
+                tooltipBox.transition().duration(200).style('opacity', 0.9);
+                tooltipBox.html('<span>' + d.gdpValue + '</span>').style('left', mouseCoords[0] + 'px').style('top', mouseCoords[1] + 'px');
+            }).on('mouseout', function (d, i) {
+                tooltipBox.transition().duration(500).style('opacity', 0);
+            });
         }
     }]);
 
@@ -436,6 +462,13 @@ var BarGraphComponent = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (BarGraphComponent);
+
+/***/ }),
+
+/***/ "./datavis-bargraph/styles/bar-graph-styles.scss":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 

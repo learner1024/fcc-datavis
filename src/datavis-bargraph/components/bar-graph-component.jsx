@@ -2,16 +2,29 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
 
+import '../styles/bar-graph-styles.scss';
+
 class BarGraphComponent extends Component{
     constructor(props){
         super(props);
     }
     render(){
-        return (<svg></svg>)
+        return (<div><svg></svg><div className='graph-tooltip'></div></div>)
     }
     componentDidUpdate(){
         let thisNode = ReactDOM.findDOMNode(this);
-        let svg = d3.select(thisNode);        
+
+
+        let tooltipWidth = 50;
+        let tooltipHeight = 30;
+
+        let tooltipBox = d3.select(thisNode).select('.graph-tooltip')
+            .style('width', tooltipWidth)
+            .style('height', tooltipHeight)
+            .style('opacity', 0)
+
+        
+        let svg = d3.select(thisNode).select('svg');        
         
         const svgWidth = 960;
         const svgHeight = 500;
@@ -20,18 +33,19 @@ class BarGraphComponent extends Component{
         let graphWidth = svgWidth - margin.right - margin.left;
         let graphHeight = svgHeight - margin.top - margin.bottom;
 
-        let minGdp = d3.min(this.props.barData, (d) => d.gdpValue);
-        let minTime = d3.min(this.props.barData, (d) => new Date(d.quarterStartDate))        
-        let maxGdp = d3.max(this.props.barData, (d) => d.gdpValue);
-        let maxTime = d3.max(this.props.barData, (d) => new Date(d.quarterStartDate))
+        let gdpExtent = d3.extent(this.props.barData, d => d.gdpValue);
+        let timeExtent = d3.extent(this.props.barData, d => d.quarterStartDate);
         
-        let xScale = d3.scaleTime().domain([minTime, maxTime]).range([0, graphWidth]);
-        let yScale = d3.scaleLinear().domain([minGdp, maxGdp]).range([graphHeight, 0])
+        let xScale = d3.scaleTime().domain(timeExtent).range([0, graphWidth]);
+        let yScale = d3.scaleLinear().domain(gdpExtent).range([graphHeight, 0])
         
         let xAxis = d3.axisBottom(xScale);
         let yAxis = d3.axisLeft(yScale);
 
         svg.attr('width', svgWidth).attr('height', svgHeight);
+
+
+
         let container = svg.append('g').attr('class', 'graph-container')
         container.append("g")
                 .attr('class', 'axis x')
@@ -47,11 +61,28 @@ class BarGraphComponent extends Component{
             .data(this.props.barData)
             .enter()
             .append('rect')
-                .attr('x', (d) => margin.left + xScale(new Date(d.quarterStartDate)) )
-                .attr('y', (d, i) => yScale(d.gdpValue))
+                .attr('class', 'bar')
+                .attr('x', (d) => margin.left + xScale(d.quarterStartDate) )
+                .attr('y', (d) => yScale(d.gdpValue))
                 .attr('width', rectWidth)
                 .attr('height', (d) => margin.top + graphHeight - yScale(d.gdpValue))
-                .attr('fill', 'grey')
+                .attr('fill', 'teal')
+                .on('mouseover', (d, i) => {
+                    let mouseCoords = d3.mouse(d3.event.currentTarget);
+                    tooltipBox.transition()
+                        .duration(200)
+                        .style('opacity', 0.9)
+                    tooltipBox.html('<span>'+ d.gdpValue +'</span>')
+                        .style('left', mouseCoords[0] + 'px')
+                        .style('top', mouseCoords[1] + 'px')
+                })
+                .on('mouseout', (d, i) => {
+                    tooltipBox.transition()		
+                        .duration(500)		
+                        .style('opacity', 0)
+                })
+
+        
     }
 }
 
