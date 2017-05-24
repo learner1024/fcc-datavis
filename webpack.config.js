@@ -13,7 +13,7 @@ const PATHS = {
     root: path.resolve(__dirname),
     src: path.resolve(__dirname, 'src'),
     dist: path.resolve(__dirname, 'dist'),
-    prod: 'https://learner1024.github.io/fcc-datavis/',
+    prod: 'https://sandeepkhandewale.js.org/fcc-datavis/',
 };
 
 const commonPlugins = [
