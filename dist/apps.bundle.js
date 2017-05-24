@@ -312,7 +312,6 @@ var BarGraph = function (_Component) {
             fetch('/data/us-gdp.json').then(function (response) {
                 return response.json();
             }).then(function (jsonData) {
-                console.log(jsonData);
                 _this2.setState({
                     data: jsonData.data.map(function (d) {
                         return { 'quarterStartDate': d[0], 'gdpValue': d[1] };
@@ -361,8 +360,6 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_d3__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -385,24 +382,53 @@ var BarGraphComponent = function (_Component) {
     _createClass(BarGraphComponent, [{
         key: 'render',
         value: function render() {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', { width: '1000', height: '1000' });
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', null);
         }
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate() {
-            var vals = this.props.barData.map(function (d) {
+            var thisNode = __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.findDOMNode(this);
+            var svg = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode);
+
+            var svgWidth = 960;
+            var svgHeight = 500;
+
+            var margin = { top: 5, right: 5, bottom: 40, left: 40 };
+            var graphWidth = svgWidth - margin.right - margin.left;
+            var graphHeight = svgHeight - margin.top - margin.bottom;
+
+            var minGdp = __WEBPACK_IMPORTED_MODULE_2_d3__["min"](this.props.barData, function (d) {
                 return d.gdpValue;
             });
-            var myScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleLinear"]().domain([0, Math.max.apply(Math, _toConsumableArray(vals))]).range([0, 500]);
-            var thisNode = __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.findDOMNode(this);
+            var minTime = __WEBPACK_IMPORTED_MODULE_2_d3__["min"](this.props.barData, function (d) {
+                return new Date(d.quarterStartDate);
+            });
+            var maxGdp = __WEBPACK_IMPORTED_MODULE_2_d3__["max"](this.props.barData, function (d) {
+                return d.gdpValue;
+            });
+            var maxTime = __WEBPACK_IMPORTED_MODULE_2_d3__["max"](this.props.barData, function (d) {
+                return new Date(d.quarterStartDate);
+            });
 
-            var svg = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).selectAll('line').data(this.props.barData).enter().append('line').attr('x1', 0).attr('y1', function (d, i) {
-                return i * 2;
-            }).attr('x2', function (d) {
-                return myScale(d.gdpValue);
-            }).attr('y2', function (d, i) {
-                return i * 2;
-            }).attr('stroke', 'black').attr('stroke-width', 0.2);
+            var xScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleTime"]().domain([minTime, maxTime]).range([0, graphWidth]);
+            var yScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleLinear"]().domain([minGdp, maxGdp]).range([graphHeight, 0]);
+
+            var xAxis = __WEBPACK_IMPORTED_MODULE_2_d3__["axisBottom"](xScale);
+            var yAxis = __WEBPACK_IMPORTED_MODULE_2_d3__["axisLeft"](yScale);
+
+            svg.attr('width', svgWidth).attr('height', svgHeight);
+            var container = svg.append('g').attr('class', 'graph-container');
+            container.append("g").attr('class', 'axis x').attr("transform", 'translate(' + margin.left + ', ' + (margin.right + graphHeight) + ')').call(xAxis);
+            container.append("g").attr('class', 'axis y').attr("transform", 'translate(' + margin.left + ', ' + margin.right + ')').call(yAxis);
+
+            var rectWidth = Math.ceil(graphWidth / this.props.barData.length);
+            container.selectAll('rect').data(this.props.barData).enter().append('rect').attr('x', function (d) {
+                return margin.left + xScale(new Date(d.quarterStartDate));
+            }).attr('y', function (d, i) {
+                return yScale(d.gdpValue);
+            }).attr('width', rectWidth).attr('height', function (d) {
+                return margin.top + graphHeight - yScale(d.gdpValue);
+            }).attr('fill', 'grey');
         }
     }]);
 
