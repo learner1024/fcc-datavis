@@ -5,7 +5,7 @@ import BarGraphComponent from './components/bar-graph-component.jsx';
 
 class BarGraph extends Component{
     retrieveDataForBarGraph(){
-        fetch('/data/us-gdp.json')
+        fetch('fcc-datavis/data/us-gdp.json')
             .then((response) => {
                 return response.json();
             })
