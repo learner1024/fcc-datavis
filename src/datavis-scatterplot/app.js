@@ -6,7 +6,7 @@ class ScatterPlot extends Component{
     constructor(props){
         super(props);
         this.state = {
-            data: []
+            data: [],
         };
         this.retrieveDataForScatterPlot();
     }
@@ -30,12 +30,12 @@ class ScatterPlot extends Component{
                 });
                 console.log(jsonData);
                 this.setState({
-                    data: jsonData
-                })
+                    data: jsonData,
+                });
             })
             .catch((err) => {
                 console.log(err);
-            })
+            });
     }
 }
 

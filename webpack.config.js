@@ -45,7 +45,7 @@ const commonConfig = {
             './recipe-box/app.js', 
             './game-of-life/app.js', 
             './datavis-bargraph/app.js',
-            './datavis-scatterplot/app.js'
+            './datavis-scatterplot/app.js',
         ],
         fx: [
             'react', 
