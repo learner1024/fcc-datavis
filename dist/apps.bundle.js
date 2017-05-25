@@ -414,7 +414,7 @@ var BarGraphComponent = function (_Component) {
                 'div',
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'graph-tooltip' })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'bargraph-tooltip' })
             );
         }
     }, {
@@ -427,7 +427,7 @@ var BarGraphComponent = function (_Component) {
             var tooltipWidth = 50;
             var tooltipHeight = 30;
 
-            var tooltipBox = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('.graph-tooltip').style('width', tooltipWidth).style('height', tooltipHeight).style('opacity', 0);
+            var tooltipBox = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('.bargraph-tooltip').style('width', tooltipWidth).style('height', tooltipHeight).style('opacity', 0);
 
             var svg = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('svg');
 
@@ -485,6 +485,212 @@ var BarGraphComponent = function (_Component) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./datavis-scatterplot/app.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_scatter_plot_component_jsx__ = __webpack_require__("./datavis-scatterplot/components/scatter-plot-component.jsx");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var ScatterPlot = function (_Component) {
+    _inherits(ScatterPlot, _Component);
+
+    function ScatterPlot(props) {
+        _classCallCheck(this, ScatterPlot);
+
+        var _this = _possibleConstructorReturn(this, (ScatterPlot.__proto__ || Object.getPrototypeOf(ScatterPlot)).call(this, props));
+
+        _this.state = {
+            data: []
+        };
+        _this.retrieveDataForScatterPlot();
+        return _this;
+    }
+
+    _createClass(ScatterPlot, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h1',
+                    null,
+                    'Scatter Plot - Cyclists and Doping'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_scatter_plot_component_jsx__["a" /* default */], { scatterData: this.state.data })
+            );
+        }
+    }, {
+        key: 'retrieveDataForScatterPlot',
+        value: function retrieveDataForScatterPlot() {
+            var _this2 = this;
+
+            fetch('data/cyclist-data.json').then(function (response) {
+                return response.json();
+            }).then(function (jsonData) {
+                jsonData.forEach(function (d) {
+                    d.Year = new Date(d.Year + '-1-1');
+                });
+                console.log(jsonData);
+                _this2.setState({
+                    data: jsonData
+                });
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    }]);
+
+    return ScatterPlot;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(ScatterPlot, null), document.querySelector('#app6Container'));
+
+/***/ }),
+
+/***/ "./datavis-scatterplot/components/scatter-plot-component.jsx":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3__ = __webpack_require__("../node_modules/d3/build/d3.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_d3__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var ScatterPlotComponent = function (_Component) {
+    _inherits(ScatterPlotComponent, _Component);
+
+    function ScatterPlotComponent(props) {
+        _classCallCheck(this, ScatterPlotComponent);
+
+        return _possibleConstructorReturn(this, (ScatterPlotComponent.__proto__ || Object.getPrototypeOf(ScatterPlotComponent)).call(this, props));
+    }
+
+    _createClass(ScatterPlotComponent, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'scatterplot-tooltip' })
+            );
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            var scatterData = this.props.scatterData;
+            var thisNode = __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.findDOMNode(this);
+
+            // let tooltipWidth = 50;
+            // let tooltipHeight = 30;
+
+            // let tooltipBox = d3.select(thisNode).select('.scatterplot-tooltip')
+            //     .style('width', tooltipWidth)
+            //     .style('height', tooltipHeight)
+            //     .style('opacity', 0)
+
+
+            var svg = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('svg');
+
+            var svgWidth = 960;
+            var svgHeight = 500;
+
+            var margin = { top: 5, right: 15, bottom: 40, left: 20 };
+            var graphWidth = svgWidth - margin.right - margin.left;
+            var graphHeight = svgHeight - margin.top - margin.bottom;
+
+            var yearExtent = __WEBPACK_IMPORTED_MODULE_2_d3__["extent"](scatterData, function (d) {
+                return d.Year;
+            });
+            var rankExtent = __WEBPACK_IMPORTED_MODULE_2_d3__["extent"](scatterData, function (d) {
+                return d.Place;
+            });
+
+            var xScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleTime"]().domain([new Date(yearExtent[0].getYear() - 2, 0, 1), yearExtent[1]]).range([0, graphWidth]);
+            var yScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleLinear"]().domain([0, rankExtent[1]]).range([graphHeight, 0]);
+
+            var xAxis = __WEBPACK_IMPORTED_MODULE_2_d3__["axisBottom"](xScale);
+            var yAxis = __WEBPACK_IMPORTED_MODULE_2_d3__["axisLeft"](yScale);
+
+            svg.attr('width', svgWidth).attr('height', svgHeight);
+
+            var container = svg.append('g').attr('class', 'graph-container');
+            container.append("g").attr('class', 'axis x').attr("transform", 'translate(' + margin.left + ', ' + (margin.right + graphHeight) + ')').call(xAxis);
+            container.append("g").attr('class', 'axis y').attr("transform", 'translate(' + margin.left + ', ' + margin.right + ')').call(yAxis);
+            container.selectAll('circle').data(scatterData).enter().append('circle') //<circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+            .attr('class', 'scatter-ball').attr('cx', function (d) {
+                return xScale(d.Year);
+            }).attr('cy', function (d) {
+                return yScale(d.Place);
+            }).attr('r', 10).attr('fill', 'gray');
+
+            // const rectWidth = Math.ceil(graphWidth / scatterData.length);
+            // container.selectAll('rect')
+            //     .data(scatterData)
+            //     .enter()
+            //     .append('rect')
+            //         .attr('class', 'bar')
+            //         .attr('x', (d) => margin.left + xScale(d.quarterStartDate) )
+            //         .attr('y', (d) => yScale(d.gdpValue))
+            //         .attr('width', rectWidth)
+            //         .attr('height', (d) => margin.top + graphHeight - yScale(d.gdpValue))
+            //         .attr('fill', 'teal')
+            //         .on('mouseover', (d, i) => {
+            //             let mouseCoords = d3.mouse(d3.event.currentTarget);
+            //             tooltipBox.transition()
+            //                 .duration(200)
+            //                 .style('opacity', 0.9)
+            //             tooltipBox.html(`<span>${d.quarterStartDate.getFullYear()} - ${this.getQuarterString(d.quarterStartDate.getMonth())} : ${d.gdpValue}</span>`)
+            //                 .style('left', mouseCoords[0] + 'px')
+            //                 .style('top', mouseCoords[1] + 'px')
+            //         })
+            //         .on('mouseout', (d, i) => {
+            //             tooltipBox.transition()		
+            //                 .duration(500)		
+            //                 .style('opacity', 0)
+            //         })
+
+        }
+    }]);
+
+    return ScatterPlotComponent;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (ScatterPlotComponent);
 
 /***/ }),
 
@@ -1315,7 +1521,8 @@ __webpack_require__("./camper-leaderboard/app.js");
 __webpack_require__("./md-previewer/app.js");
 __webpack_require__("./recipe-box/app.js");
 __webpack_require__("./game-of-life/app.js");
-module.exports = __webpack_require__("./datavis-bargraph/app.js");
+__webpack_require__("./datavis-bargraph/app.js");
+module.exports = __webpack_require__("./datavis-scatterplot/app.js");
 
 
 /***/ })

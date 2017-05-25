@@ -26,7 +26,7 @@ class BarGraphComponent extends Component{
         return ret;
     }
     render(){
-        return (<div><svg></svg><div className='graph-tooltip'></div></div>)
+        return (<div><svg></svg><div className='bargraph-tooltip'></div></div>)
     }
     componentDidUpdate(){
         let thisNode = ReactDOM.findDOMNode(this);
@@ -35,7 +35,7 @@ class BarGraphComponent extends Component{
         let tooltipWidth = 50;
         let tooltipHeight = 30;
 
-        let tooltipBox = d3.select(thisNode).select('.graph-tooltip')
+        let tooltipBox = d3.select(thisNode).select('.bargraph-tooltip')
             .style('width', tooltipWidth)
             .style('height', tooltipHeight)
             .style('opacity', 0)

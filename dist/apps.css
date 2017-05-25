@@ -2387,7 +2387,7 @@
 .bar:hover {
   opacity: 0.5; }
 
-.graph-tooltip {
+.bargraph-tooltip {
   position: absolute;
   background-color: grey;
   border-radius: 5px;
