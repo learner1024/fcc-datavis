@@ -2392,3 +2392,8 @@
   background-color: grey;
   border-radius: 5px;
   color: white; }
+.scatterplot-tooltip {
+  position: absolute;
+  background-color: lightgray;
+  border-radius: 5px;
+  color: white; }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import ScatterPlotComponent from './components/scatter-plot-component.jsx';
+import './styles/scatter-plot-styles.scss';
 
 class ScatterPlot extends Component{
     constructor(props){
