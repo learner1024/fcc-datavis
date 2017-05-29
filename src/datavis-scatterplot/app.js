@@ -29,7 +29,6 @@ class ScatterPlot extends Component{
                 jsonData.forEach(d => {
                     d.Year = new Date(`${d.Year}-1-1`);
                 });
-                console.log(jsonData);
                 this.setState({
                     data: jsonData,
                 });

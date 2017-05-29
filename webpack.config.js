@@ -46,6 +46,7 @@ const commonConfig = {
             './game-of-life/app.js', 
             './datavis-bargraph/app.js',
             './datavis-scatterplot/app.js',
+            './datavis-heatmap/app.js',
         ],
         fx: [
             'react', 

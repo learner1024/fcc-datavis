@@ -488,6 +488,212 @@ var BarGraphComponent = function (_Component) {
 
 /***/ }),
 
+/***/ "./datavis-heatmap/app.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_heat_map_component_jsx__ = __webpack_require__("./datavis-heatmap/components/heat-map-component.jsx");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var Heatmap = function (_Component) {
+    _inherits(Heatmap, _Component);
+
+    function Heatmap(props) {
+        _classCallCheck(this, Heatmap);
+
+        var _this = _possibleConstructorReturn(this, (Heatmap.__proto__ || Object.getPrototypeOf(Heatmap)).call(this, props));
+
+        _this.state = { data: [] };
+        _this.retrieveDataForHeatmap();
+        return _this;
+    }
+
+    _createClass(Heatmap, [{
+        key: 'retrieveDataForHeatmap',
+        value: function retrieveDataForHeatmap() {
+            var _this2 = this;
+
+            fetch('data/global-temperature.json').then(function (response) {
+                return response.json();
+            }).then(function (jsonData) {
+                jsonData.monthlyVariance.forEach(function (d) {
+                    d.variance = jsonData.baseTemperature + d.variance;
+                    d.date = new Date(d.year, 1, 1);
+                });
+                return jsonData.monthlyVariance;
+            }).then(function (formattedData) {
+                return _this2.setState({
+                    data: formattedData
+                });
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h1',
+                    null,
+                    'Heatmap'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_heat_map_component_jsx__["a" /* default */], { heatmapData: this.state.data })
+            );
+        }
+    }]);
+
+    return Heatmap;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Heatmap, null), document.querySelector('#app7Container'));
+
+/***/ }),
+
+/***/ "./datavis-heatmap/components/heat-map-component.jsx":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3__ = __webpack_require__("../node_modules/d3/build/d3.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_d3__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var HeatmapComponent = function (_Component) {
+    _inherits(HeatmapComponent, _Component);
+
+    function HeatmapComponent(props) {
+        _classCallCheck(this, HeatmapComponent);
+
+        return _possibleConstructorReturn(this, (HeatmapComponent.__proto__ || Object.getPrototypeOf(HeatmapComponent)).call(this, props));
+    }
+
+    _createClass(HeatmapComponent, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'heatmap-tooltip' })
+            );
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            var thisNode = __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.findDOMNode(this);
+
+            // let tooltipWidth = 50;
+            // let tooltipHeight = 30;
+
+            // let tooltipBox = d3.select(thisNode).select('.bargraph-tooltip')
+            //     .style('width', tooltipWidth)
+            //     .style('height', tooltipHeight)
+            //     .style('opacity', 0)
+
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            var svg = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('svg');
+
+            var svgWidth = 960;
+            var svgHeight = 500;
+
+            var margin = { top: 5, right: 5, bottom: 40, left: 40 };
+            var graphWidth = svgWidth - margin.right - margin.left;
+            var graphHeight = svgHeight - margin.top - margin.bottom;
+
+            var yearExtent = __WEBPACK_IMPORTED_MODULE_2_d3__["extent"](this.props.heatmapData, function (d) {
+                return d.date;
+            });
+            var monthExtent = __WEBPACK_IMPORTED_MODULE_2_d3__["extent"](this.props.heatmapData, function (d) {
+                return d.month;
+            });
+            var varianceExtent = __WEBPACK_IMPORTED_MODULE_2_d3__["extent"](this.props.heatmapData, function (d) {
+                return d.variance;
+            });
+
+            var xScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleTime"]().domain(yearExtent).range([0, graphWidth]);
+            var yScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleLinear"]().domain([monthExtent[0] - 0.5, monthExtent[1] + 0.5]).range([graphHeight, 0]);
+            var colorScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleLinear"]().domain(varianceExtent).range([100, 0]);
+
+            var xAxis = __WEBPACK_IMPORTED_MODULE_2_d3__["axisBottom"](xScale).ticks(__WEBPACK_IMPORTED_MODULE_2_d3__["timeYear"].every(10));
+            var yAxis = __WEBPACK_IMPORTED_MODULE_2_d3__["axisLeft"](yScale);
+
+            svg.attr('width', svgWidth).attr('height', svgHeight);
+
+            var container = svg.append('g').attr('class', 'graph-container');
+            container.append("g").attr('class', 'axis x').attr("transform", 'translate(' + margin.left + ', ' + (margin.right + graphHeight) + ')').call(xAxis);
+            container.append("g").attr('class', 'axis y').attr("transform", 'translate(' + margin.left + ', ' + margin.right + ')').call(yAxis);
+
+            var rectWidth = xScale(new Date(2015, 1, 1)) - xScale(new Date(2014, 1, 1));
+            var rectHeight = yScale(1) - yScale(2);
+            var rectHeightBy2 = rectHeight / 2;
+            container.selectAll('rect')
+            //.data([this.props.heatmapData[0]])
+            .data(this.props.heatmapData).enter().append('rect').attr('class', 'heatmap-block').attr('x', function (d) {
+                return margin.left + xScale(d.date);
+            }).attr('y', function (d) {
+                return margin.top + yScale(d.month) - rectHeightBy2;
+            }).attr('width', rectWidth).attr('height', rectHeight).attr('fill', function (d) {
+                return 'hsla(' + colorScale(d.variance) + ', 100%, 60%, 0.8)';
+            }).attr('dt', function (d) {
+                return d.variance;
+            });
+            // .on('mouseover', (d, i) => {
+            //     let mouseCoords = d3.mouse(d3.event.currentTarget);
+            //     tooltipBox.transition()
+            //         .duration(200)
+            //         .style('opacity', 0.9)
+            //     tooltipBox.html(`<span>${d.quarterStartDate.getFullYear()} - ${this.getQuarterString(d.quarterStartDate.getMonth())} : ${d.gdpValue}</span>`)
+            //         .style('left', mouseCoords[0] + 'px')
+            //         .style('top', mouseCoords[1] + 'px')
+            // })
+            // .on('mouseout', (d, i) => {
+            //     tooltipBox.transition()		
+            //         .duration(500)		
+            //         .style('opacity', 0)
+            // })
+        }
+    }]);
+
+    return HeatmapComponent;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (HeatmapComponent);
+
+/***/ }),
+
 /***/ "./datavis-scatterplot/app.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -554,7 +760,6 @@ var ScatterPlot = function (_Component) {
                 jsonData.forEach(function (d) {
                     d.Year = new Date(d.Year + '-1-1');
                 });
-                console.log(jsonData);
                 _this2.setState({
                     data: jsonData
                 });
@@ -1567,7 +1772,8 @@ __webpack_require__("./md-previewer/app.js");
 __webpack_require__("./recipe-box/app.js");
 __webpack_require__("./game-of-life/app.js");
 __webpack_require__("./datavis-bargraph/app.js");
-module.exports = __webpack_require__("./datavis-scatterplot/app.js");
+__webpack_require__("./datavis-scatterplot/app.js");
+module.exports = __webpack_require__("./datavis-heatmap/app.js");
 
 
 /***/ })
