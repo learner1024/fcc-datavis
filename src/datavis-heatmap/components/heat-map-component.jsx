@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
+
 class HeatmapComponent extends Component{
     constructor(props){
         super(props);
@@ -14,13 +15,13 @@ class HeatmapComponent extends Component{
         let thisNode = ReactDOM.findDOMNode(this);
 
 
-        // let tooltipWidth = 50;
-        // let tooltipHeight = 30;
+        let tooltipWidth = 50;
+        let tooltipHeight = 30;
 
-        // let tooltipBox = d3.select(thisNode).select('.bargraph-tooltip')
-        //     .style('width', tooltipWidth)
-        //     .style('height', tooltipHeight)
-        //     .style('opacity', 0)
+        let tooltipBox = d3.select(thisNode).select('.heatmap-tooltip')
+            .style('width', tooltipWidth)
+            .style('height', tooltipHeight)
+            .style('opacity', 0)
 
         let months =  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         
@@ -35,7 +36,7 @@ class HeatmapComponent extends Component{
 
         let yearExtent = d3.extent(this.props.heatmapData, d => d.date);
         let monthExtent = d3.extent(this.props.heatmapData, d => d.month);
-        let varianceExtent = d3.extent(this.props.heatmapData, d => d.variance);
+        let varianceExtent = d3.extent(this.props.heatmapData, d => d.temp);
         
         let xScale = d3.scaleTime().domain(yearExtent).range([0, graphWidth]);
         let yScale = d3.scaleLinear().domain([monthExtent[0] - 0.5, monthExtent[1] + 0.5]).range([graphHeight, 0])
@@ -51,11 +52,11 @@ class HeatmapComponent extends Component{
         let container = svg.append('g').attr('class', 'graph-container')
         container.append("g")
                 .attr('class', 'axis x')
-                .attr("transform", `translate(${margin.left}, ${margin.right + graphHeight})`)
+                .attr("transform", `translate(${margin.left}, ${margin.top + graphHeight})`)
                 .call(xAxis);
         container.append("g")
                 .attr('class', 'axis y')
-                .attr("transform", `translate(${margin.left}, ${margin.right})`)
+                .attr("transform", `translate(${margin.left}, ${margin.top})`)
                 .call(yAxis);
 
         const rectWidth = xScale(new Date(2015, 1, 1)) - xScale(new Date(2014, 1, 1));
@@ -71,22 +72,22 @@ class HeatmapComponent extends Component{
                 .attr('y', (d) => margin.top + yScale(d.month) - rectHeightBy2)
                 .attr('width', rectWidth)
                 .attr('height', rectHeight)
-                .attr('fill', d => `hsla(${colorScale(d.variance)}, 100%, 60%, 0.8)`)
-                .attr('dt', d => d.variance)
-                // .on('mouseover', (d, i) => {
-                //     let mouseCoords = d3.mouse(d3.event.currentTarget);
-                //     tooltipBox.transition()
-                //         .duration(200)
-                //         .style('opacity', 0.9)
-                //     tooltipBox.html(`<span>${d.quarterStartDate.getFullYear()} - ${this.getQuarterString(d.quarterStartDate.getMonth())} : ${d.gdpValue}</span>`)
-                //         .style('left', mouseCoords[0] + 'px')
-                //         .style('top', mouseCoords[1] + 'px')
-                // })
-                // .on('mouseout', (d, i) => {
-                //     tooltipBox.transition()		
-                //         .duration(500)		
-                //         .style('opacity', 0)
-                // })
+                .attr('fill', d => `hsla(${colorScale(d.temp)}, 100%, 60%, 0.8)`)
+                .attr('dt', d => d.temp)
+                .on('mouseover', (d, i) => {
+                    let mouseCoords = d3.mouse(d3.event.currentTarget);
+                    tooltipBox.transition()
+                        .duration(200)
+                        .style('opacity', 0.9)
+                    tooltipBox.html(`<span>${months[d.month - 1]} ${d.date.getFullYear()} : ${d.temp}</span>`)
+                        .style('left', mouseCoords[0] + 'px')
+                        .style('top', mouseCoords[1] + 'px')
+                })
+                .on('mouseout', (d, i) => {
+                    tooltipBox.transition()		
+                        .duration(500)		
+                        .style('opacity', 0)
+                })
     }
 }
 

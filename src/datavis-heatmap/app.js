@@ -1,6 +1,7 @@
 import React , {Component} from 'react';
 import ReactDOM from 'react-dom';
 import HeatmapComponent from './components/heat-map-component.jsx';
+import './styles/heatmap-styles.scss';
 
 class Heatmap extends Component{
     constructor(props){
@@ -13,7 +14,7 @@ class Heatmap extends Component{
             .then(response => response.json())
             .then(jsonData => {
                 jsonData.monthlyVariance.forEach(d => {
-                    d.variance = jsonData.baseTemperature + d.variance;
+                    d.temp = jsonData.baseTemperature + d.variance;
                     d.date = new Date(d.year, 1, 1);
                 });
                 return jsonData.monthlyVariance;

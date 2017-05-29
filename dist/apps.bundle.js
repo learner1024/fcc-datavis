@@ -498,6 +498,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_heat_map_component_jsx__ = __webpack_require__("./datavis-heatmap/components/heat-map-component.jsx");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__styles_heatmap_styles_scss__ = __webpack_require__("./datavis-heatmap/styles/heatmap-styles.scss");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__styles_heatmap_styles_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__styles_heatmap_styles_scss__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -505,6 +507,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -532,7 +535,7 @@ var Heatmap = function (_Component) {
                 return response.json();
             }).then(function (jsonData) {
                 jsonData.monthlyVariance.forEach(function (d) {
-                    d.variance = jsonData.baseTemperature + d.variance;
+                    d.temp = jsonData.baseTemperature + d.variance;
                     d.date = new Date(d.year, 1, 1);
                 });
                 return jsonData.monthlyVariance;
@@ -614,13 +617,10 @@ var HeatmapComponent = function (_Component) {
         value: function componentDidUpdate() {
             var thisNode = __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.findDOMNode(this);
 
-            // let tooltipWidth = 50;
-            // let tooltipHeight = 30;
+            var tooltipWidth = 50;
+            var tooltipHeight = 30;
 
-            // let tooltipBox = d3.select(thisNode).select('.bargraph-tooltip')
-            //     .style('width', tooltipWidth)
-            //     .style('height', tooltipHeight)
-            //     .style('opacity', 0)
+            var tooltipBox = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('.heatmap-tooltip').style('width', tooltipWidth).style('height', tooltipHeight).style('opacity', 0);
 
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -640,7 +640,7 @@ var HeatmapComponent = function (_Component) {
                 return d.month;
             });
             var varianceExtent = __WEBPACK_IMPORTED_MODULE_2_d3__["extent"](this.props.heatmapData, function (d) {
-                return d.variance;
+                return d.temp;
             });
 
             var xScale = __WEBPACK_IMPORTED_MODULE_2_d3__["scaleTime"]().domain(yearExtent).range([0, graphWidth]);
@@ -653,8 +653,8 @@ var HeatmapComponent = function (_Component) {
             svg.attr('width', svgWidth).attr('height', svgHeight);
 
             var container = svg.append('g').attr('class', 'graph-container');
-            container.append("g").attr('class', 'axis x').attr("transform", 'translate(' + margin.left + ', ' + (margin.right + graphHeight) + ')').call(xAxis);
-            container.append("g").attr('class', 'axis y').attr("transform", 'translate(' + margin.left + ', ' + margin.right + ')').call(yAxis);
+            container.append("g").attr('class', 'axis x').attr("transform", 'translate(' + margin.left + ', ' + (margin.top + graphHeight) + ')').call(xAxis);
+            container.append("g").attr('class', 'axis y').attr("transform", 'translate(' + margin.left + ', ' + margin.top + ')').call(yAxis);
 
             var rectWidth = xScale(new Date(2015, 1, 1)) - xScale(new Date(2014, 1, 1));
             var rectHeight = yScale(1) - yScale(2);
@@ -666,24 +666,16 @@ var HeatmapComponent = function (_Component) {
             }).attr('y', function (d) {
                 return margin.top + yScale(d.month) - rectHeightBy2;
             }).attr('width', rectWidth).attr('height', rectHeight).attr('fill', function (d) {
-                return 'hsla(' + colorScale(d.variance) + ', 100%, 60%, 0.8)';
+                return 'hsla(' + colorScale(d.temp) + ', 100%, 60%, 0.8)';
             }).attr('dt', function (d) {
-                return d.variance;
+                return d.temp;
+            }).on('mouseover', function (d, i) {
+                var mouseCoords = __WEBPACK_IMPORTED_MODULE_2_d3__["mouse"](__WEBPACK_IMPORTED_MODULE_2_d3__["event"].currentTarget);
+                tooltipBox.transition().duration(200).style('opacity', 0.9);
+                tooltipBox.html('<span>' + months[d.month - 1] + ' ' + d.date.getFullYear() + ' : ' + d.temp + '</span>').style('left', mouseCoords[0] + 'px').style('top', mouseCoords[1] + 'px');
+            }).on('mouseout', function (d, i) {
+                tooltipBox.transition().duration(500).style('opacity', 0);
             });
-            // .on('mouseover', (d, i) => {
-            //     let mouseCoords = d3.mouse(d3.event.currentTarget);
-            //     tooltipBox.transition()
-            //         .duration(200)
-            //         .style('opacity', 0.9)
-            //     tooltipBox.html(`<span>${d.quarterStartDate.getFullYear()} - ${this.getQuarterString(d.quarterStartDate.getMonth())} : ${d.gdpValue}</span>`)
-            //         .style('left', mouseCoords[0] + 'px')
-            //         .style('top', mouseCoords[1] + 'px')
-            // })
-            // .on('mouseout', (d, i) => {
-            //     tooltipBox.transition()		
-            //         .duration(500)		
-            //         .style('opacity', 0)
-            // })
         }
     }]);
 
@@ -691,6 +683,13 @@ var HeatmapComponent = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (HeatmapComponent);
+
+/***/ }),
+
+/***/ "./datavis-heatmap/styles/heatmap-styles.scss":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
