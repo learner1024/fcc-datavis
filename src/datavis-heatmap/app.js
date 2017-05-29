@@ -15,13 +15,13 @@ class Heatmap extends Component{
                 jsonData.monthlyVariance.forEach(d => {
                     d.variance = jsonData.baseTemperature + d.variance;
                     d.date = new Date(d.year, 1, 1);
-                })
+                });
                 return jsonData.monthlyVariance;
             })
             .then(formattedData => this.setState({
-                data : formattedData
+                data : formattedData,
             }))
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
     }
     render(){
         return(
