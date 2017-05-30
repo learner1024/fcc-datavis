@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import FDGComponent from './components/fdg-component.jsx'
+import FDGComponent from './components/fdg-component.jsx';
 
 class ForceDirectedGraph extends Component{
     constructor(props){
         super(props);
 
         this.state = {
-            data: {}
-        }
+            data: {},
+        };
     }
     retrieveFDGData(){
         fetch('data/fdg_data.json')
@@ -17,10 +17,10 @@ class ForceDirectedGraph extends Component{
             })
             .then((jsonData) => {
                 this.setState({
-                    data: jsonData 
+                    data: jsonData, 
                 });
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err));
     }
     render(){
         return(
@@ -29,7 +29,7 @@ class ForceDirectedGraph extends Component{
                 <br />
                 <FDGComponent fdgData={this.state.data} />
             </div>
-        )
+        );
     }
 }
 
