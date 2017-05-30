@@ -9,7 +9,7 @@ class ForceDirectedGraph extends Component{
         this.state = {
             data: {},
         };
-        this.retrieveFDGData()
+        this.retrieveFDGData();
     }
     retrieveFDGData(){
         fetch('data/fdg_data.json')
