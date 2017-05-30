@@ -521,6 +521,7 @@ var ForceDirectedGraph = function (_Component) {
         _this.state = {
             data: {}
         };
+        _this.retrieveFDGData();
         return _this;
     }
 
@@ -606,7 +607,52 @@ var FDGComponent = function (_Component) {
         }
     }, {
         key: 'componentDidUpdate',
-        value: function componentDidUpdate() {}
+        value: function componentDidUpdate() {
+
+            var nodes = this.props.fdgData.nodes.slice(0);
+            var links = this.props.fdgData.links.slice(0);
+
+            var thisNode = __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.findDOMNode(this);
+
+            var svg = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('svg');
+
+            var svgWidth = 960;
+            var svgHeight = 500;
+
+            svg.attr('width', svgWidth).attr('height', svgHeight);
+
+            var container = svg.append('g').attr('class', 'graph-container');
+            var circlesContainer = container.append('g').attr('class', 'circles-c');
+            var linesContainer = container.append('g').attr('class', 'lines-c');
+
+            var forceSim = __WEBPACK_IMPORTED_MODULE_2_d3__["forceSimulation"]().force("link", __WEBPACK_IMPORTED_MODULE_2_d3__["forceLink"]().id(function (d) {
+                return d.index;
+            })).force("charge", __WEBPACK_IMPORTED_MODULE_2_d3__["forceManyBody"]()).force("center", __WEBPACK_IMPORTED_MODULE_2_d3__["forceCenter"](svgWidth / 2, svgHeight / 2));
+
+            var circles = container.selectAll('circle').data(nodes).enter().append('circle').attr('r', 2.5).attr('fill', 'teal');
+
+            var lines = container.selectAll('line').data(links).enter().append('line').attr('stroke-width', 1).attr('stroke', 'teal');
+
+            forceSim.nodes(nodes).on("tick", function () {
+                lines.attr("x1", function (d) {
+                    return d.source.x;
+                }).attr("y1", function (d) {
+                    return d.source.y;
+                }).attr("x2", function (d) {
+                    return d.target.x;
+                }).attr("y2", function (d) {
+                    return d.target.y;
+                });
+
+                circles.attr("cx", function (d) {
+                    return d.x;
+                }).attr("cy", function (d) {
+                    return d.y;
+                });
+            });
+
+            forceSim.force("link").links(links);
+        }
     }]);
 
     return FDGComponent;
