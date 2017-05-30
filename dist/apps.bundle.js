@@ -488,6 +488,134 @@ var BarGraphComponent = function (_Component) {
 
 /***/ }),
 
+/***/ "./datavis-forcedirectedgraph/app.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_fdg_component_jsx__ = __webpack_require__("./datavis-forcedirectedgraph/components/fdg-component.jsx");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var ForceDirectedGraph = function (_Component) {
+    _inherits(ForceDirectedGraph, _Component);
+
+    function ForceDirectedGraph(props) {
+        _classCallCheck(this, ForceDirectedGraph);
+
+        var _this = _possibleConstructorReturn(this, (ForceDirectedGraph.__proto__ || Object.getPrototypeOf(ForceDirectedGraph)).call(this, props));
+
+        _this.state = {
+            data: {}
+        };
+        return _this;
+    }
+
+    _createClass(ForceDirectedGraph, [{
+        key: 'retrieveFDGData',
+        value: function retrieveFDGData() {
+            var _this2 = this;
+
+            fetch('data/fdg_data.json').then(function (response) {
+                return response.json();
+            }).then(function (jsonData) {
+                _this2.setState({
+                    data: jsonData
+                });
+            }).catch(function (err) {
+                return console.log(err);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'h1',
+                    null,
+                    'Force Directed Graph'
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_fdg_component_jsx__["a" /* default */], { fdgData: this.state.data })
+            );
+        }
+    }]);
+
+    return ForceDirectedGraph;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(ForceDirectedGraph, null), document.querySelector('#app8Container'));
+
+/***/ }),
+
+/***/ "./datavis-forcedirectedgraph/components/fdg-component.jsx":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3__ = __webpack_require__("../node_modules/d3/build/d3.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_d3__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var FDGComponent = function (_Component) {
+    _inherits(FDGComponent, _Component);
+
+    function FDGComponent(props) {
+        _classCallCheck(this, FDGComponent);
+
+        return _possibleConstructorReturn(this, (FDGComponent.__proto__ || Object.getPrototypeOf(FDGComponent)).call(this, props));
+    }
+
+    _createClass(FDGComponent, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'fdg-tooltip' })
+            );
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {}
+    }]);
+
+    return FDGComponent;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (FDGComponent);
+
+/***/ }),
+
 /***/ "./datavis-heatmap/app.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -497,7 +625,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__("../node_modules/react-dom/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_heat_map_component_jsx__ = __webpack_require__("./datavis-heatmap/components/heat-map-component.jsx");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_heatmap_component_jsx__ = __webpack_require__("./datavis-heatmap/components/heatmap-component.jsx");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__styles_heatmap_styles_scss__ = __webpack_require__("./datavis-heatmap/styles/heatmap-styles.scss");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__styles_heatmap_styles_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__styles_heatmap_styles_scss__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -559,7 +687,7 @@ var Heatmap = function (_Component) {
                     'Heatmap'
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('br', null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_heat_map_component_jsx__["a" /* default */], { heatmapData: this.state.data })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_heatmap_component_jsx__["a" /* default */], { heatmapData: this.state.data })
             );
         }
     }]);
@@ -571,7 +699,7 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ "./datavis-heatmap/components/heat-map-component.jsx":
+/***/ "./datavis-heatmap/components/heatmap-component.jsx":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1772,7 +1900,8 @@ __webpack_require__("./recipe-box/app.js");
 __webpack_require__("./game-of-life/app.js");
 __webpack_require__("./datavis-bargraph/app.js");
 __webpack_require__("./datavis-scatterplot/app.js");
-module.exports = __webpack_require__("./datavis-heatmap/app.js");
+__webpack_require__("./datavis-heatmap/app.js");
+module.exports = __webpack_require__("./datavis-forcedirectedgraph/app.js");
 
 
 /***/ })

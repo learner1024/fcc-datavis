@@ -47,6 +47,7 @@ const commonConfig = {
             './datavis-bargraph/app.js',
             './datavis-scatterplot/app.js',
             './datavis-heatmap/app.js',
+            './datavis-forcedirectedgraph/app.js',
         ],
         fx: [
             'react', 
