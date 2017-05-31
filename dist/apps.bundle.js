@@ -7,13 +7,6 @@ webpackJsonp([0],{
 
 /***/ }),
 
-/***/ "../node_modules/flag-icon-css/css/flag-icon.css":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ "../node_modules/font-awesome/css/font-awesome.css":
 /***/ (function(module, exports) {
 
@@ -584,8 +577,6 @@ __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3__ = __webpack_require__("../node_modules/d3/build/d3.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_d3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_d3__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_flag_icon_css_css_flag_icon_css__ = __webpack_require__("../node_modules/flag-icon-css/css/flag-icon.css");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_flag_icon_css_css_flag_icon_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_flag_icon_css_css_flag_icon_css__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -593,7 +584,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -615,8 +605,7 @@ var FDGComponent = function (_Component) {
                 'div',
                 null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'fdg-tooltip' }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', null),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'flags-container' })
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('svg', null)
             );
         }
     }, {
@@ -631,7 +620,6 @@ var FDGComponent = function (_Component) {
             var tooltipBox = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('.fdg-tooltip').style('width', tooltipWidth).style('height', tooltipHeight).style('opacity', 0).style('z-index', 1000);
 
             var svg = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('svg');
-            var flagsContainer = __WEBPACK_IMPORTED_MODULE_2_d3__["select"](thisNode).select('.flags-container');
 
             var svgWidth = 960;
             var svgHeight = 500;
@@ -640,13 +628,14 @@ var FDGComponent = function (_Component) {
 
             var container = svg.append('g').attr('class', 'graph-container');
             var linesContainer = container.append('g').attr('class', 'lines-c');
+            var namesContainer = container.append('g').attr('class', 'names-c');
 
             var forceSim = __WEBPACK_IMPORTED_MODULE_2_d3__["forceSimulation"]().force("link", __WEBPACK_IMPORTED_MODULE_2_d3__["forceLink"]().id(function (d) {
                 return d.index;
             })).force("charge", __WEBPACK_IMPORTED_MODULE_2_d3__["forceManyBody"]().strength(-50)).force("center", __WEBPACK_IMPORTED_MODULE_2_d3__["forceCenter"](svgWidth / 2, svgHeight / 2)).force("y", __WEBPACK_IMPORTED_MODULE_2_d3__["forceY"](0)).force("x", __WEBPACK_IMPORTED_MODULE_2_d3__["forceX"](0));
 
-            var flags = flagsContainer.selectAll('div').data(nodes).enter().append('div').attr('class', function (d) {
-                return 'flag-icon flag-icon-' + d.code;
+            var names = namesContainer.selectAll('text').data(nodes).enter().append('text').attr('fill', 'teal').text(function (d) {
+                return d.country;
             }).call(__WEBPACK_IMPORTED_MODULE_2_d3__["drag"]().on("start", function (d) {
                 if (!__WEBPACK_IMPORTED_MODULE_2_d3__["event"].active) forceSim.alphaTarget(0.3).restart();
                 d.fx = d.x;
@@ -673,19 +662,18 @@ var FDGComponent = function (_Component) {
                     return d.target.y;
                 });
 
-                flags.style('left', function (d) {
-                    return d.x + 'px';
-                }).style('top', function (d) {
-                    return d.y + 65 + 'px';
+                names.attr('x', function (d) {
+                    return d.x;
+                }).attr('y', function (d) {
+                    return d.y;
                 });
-            }).on("end", function () {
-                flags.on('mouseover', function (d) {
+                names.on('mouseover', function (d) {
                     tooltipBox.transition().duration(200).style('opacity', 0.9);
                     tooltipBox.html(d.country).style('left', d.x + 20 + 'px').style('top', d.y + 65 + 'px');
                 }).on('mouseout', function (d, i) {
                     tooltipBox.transition().duration(500).style('opacity', 0);
                 });
-            });
+            }).on("end", function () {});
 
             forceSim.force("link").links(links);
         }

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import 'flag-icon-css/css/flag-icon.css';
 
 class FDGComponent extends Component{
     constructor(props){
@@ -9,7 +8,7 @@ class FDGComponent extends Component{
     }
     render(){
         return (
-            <div><div className='fdg-tooltip'></div><svg></svg><div className='flags-container'></div></div>
+            <div><div className='fdg-tooltip'></div><svg></svg></div>
         );
     }    
     componentDidUpdate(){
@@ -26,7 +25,6 @@ class FDGComponent extends Component{
             .style('z-index', 1000)
         
         let svg = d3.select(thisNode).select('svg');
-        let flagsContainer = d3.select(thisNode).select('.flags-container');
 
         const svgWidth = 960;
         const svgHeight = 500;
@@ -35,6 +33,7 @@ class FDGComponent extends Component{
 
         let container = svg.append('g').attr('class', 'graph-container')
         let linesContainer = container.append('g').attr('class', 'lines-c')
+        let namesContainer = container.append('g').attr('class', 'names-c')
         
         let forceSim = d3.forceSimulation()
             .force("link", d3.forceLink().id(d => d.index))
@@ -44,11 +43,12 @@ class FDGComponent extends Component{
             .force("x", d3.forceX(0));
 
 
-        let flags = flagsContainer.selectAll('div')
+        let names = namesContainer.selectAll('text')
             .data(nodes)
             .enter()
-            .append('div')
-                .attr('class', d => `flag-icon flag-icon-${d.code}`)
+            .append('text')
+                .attr('fill','teal')
+                .text(d => d.country)
                 .call(d3.drag()
                     .on("start", (d) => {
                         if (!d3.event.active) forceSim.alphaTarget(0.3).restart();
@@ -84,13 +84,10 @@ class FDGComponent extends Component{
                     .attr("x2", d => d.target.x)
                     .attr("y2", d => d.target.y)
 
-                flags
-                    .style('left', d => `${d.x}px`)
-                    .style('top', d => `${d.y+65}px`)                    
-                    
-            })
-            .on("end", function(){
-                flags
+                names
+                    .attr('x', d => d.x)
+                    .attr('y', d => d.y)      
+                names
                     .on('mouseover', d => {
                         tooltipBox.transition()
                             .duration(200)
@@ -105,6 +102,10 @@ class FDGComponent extends Component{
                             .duration(500)		
                             .style('opacity', 0)
                     })
+                    
+            })
+            .on("end", function(){
+                
                     
             });
 
