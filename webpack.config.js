@@ -67,7 +67,7 @@ const commonConfig = {
             {test: /\.(pug|jade)$/, use: 'pug-loader', exclude: /node_modules/,  include: PATHS.src},
             {test: /\.scss$/,use: extractStyleTag.extract({use: ['css-loader','sass-loader'], fallback: 'style-loader'})},
             {test: /\.css$/,use: extractStyleTag.extract({ use: ['css-loader'] })},
-            {test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,use: ['url-loader?limit=10000']},
+            {test: /\.(woff(2)?|ttf|png|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,use: ['url-loader?limit=10000']},
         ],
     },
     output: {

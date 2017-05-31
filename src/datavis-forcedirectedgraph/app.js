@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import FDGComponent from './components/fdg-component.jsx';
 import './styles/fdg-styles.scss';
+import './styles/flags.css';
 
 class ForceDirectedGraph extends Component{
     constructor(props){

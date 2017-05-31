@@ -8,7 +8,11 @@ class FDGComponent extends Component{
     }
     render(){
         return (
-            <div><div className='fdg-tooltip'></div><svg></svg></div>
+            <div>
+                <div className='fdg-tooltip'></div>
+                <div className='fdg-flags'></div>
+                <svg></svg>
+            </div>
         );
     }    
     componentDidUpdate(){
@@ -27,13 +31,14 @@ class FDGComponent extends Component{
         let svg = d3.select(thisNode).select('svg');
 
         const svgWidth = 960;
-        const svgHeight = 500;
+        const svgHeight = 600;
 
         svg.attr('width', svgWidth).attr('height', svgHeight);
 
         let container = svg.append('g').attr('class', 'graph-container')
         let linesContainer = container.append('g').attr('class', 'lines-c')
-        let namesContainer = container.append('g').attr('class', 'names-c')
+        let flagsContainer = d3.select(thisNode).select('.fdg-flags');
+        //let namesContainer = container.append('g').attr('class', 'names-c')
         
         let forceSim = d3.forceSimulation()
             .force("link", d3.forceLink().id(d => d.index))
@@ -43,12 +48,33 @@ class FDGComponent extends Component{
             .force("x", d3.forceX(0));
 
 
-        let names = namesContainer.selectAll('text')
+        // let names = namesContainer.selectAll('text')
+        //     .data(nodes)
+        //     .enter()
+        //     .append('text')
+        //         .attr('fill','teal')
+        //         .text(d => d.country)
+        //         .call(d3.drag()
+        //             .on("start", (d) => {
+        //                 if (!d3.event.active) forceSim.alphaTarget(0.3).restart();
+        //                 d.fx = d.x;
+        //                 d.fy = d.y;
+        //             })
+        //             .on("drag", (d) => {
+        //                 d.fx = d3.event.x;
+        //                 d.fy = d3.event.y;
+        //             })
+        //             .on("end", (d) => {
+        //                 if (!d3.event.active) forceSim.alphaTarget(0);
+        //                 delete d.fx;
+        //                 delete d.fy;
+        //             } ))
+
+        let flags = flagsContainer.selectAll('div')
             .data(nodes)
             .enter()
-            .append('text')
-                .attr('fill','teal')
-                .text(d => d.country)
+            .append('div')
+                .attr('class', d => `flag flag-${d.code}`)
                 .call(d3.drag()
                     .on("start", (d) => {
                         if (!d3.event.active) forceSim.alphaTarget(0.3).restart();
@@ -84,10 +110,10 @@ class FDGComponent extends Component{
                     .attr("x2", d => d.target.x)
                     .attr("y2", d => d.target.y)
 
-                names
-                    .attr('x', d => d.x)
-                    .attr('y', d => d.y)      
-                names
+                flags
+                    .style('left', d => d.x+'px')
+                    .style('top', d => d.y+65+'px')      
+                flags
                     .on('mouseover', d => {
                         tooltipBox.transition()
                             .duration(200)
@@ -104,10 +130,6 @@ class FDGComponent extends Component{
                     })
                     
             })
-            .on("end", function(){
-                
-                    
-            });
 
         forceSim
             .force("link").links(links);
