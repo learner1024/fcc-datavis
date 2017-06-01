@@ -22,7 +22,7 @@ class MeteoriteGlobeApp extends Component{
     render(){
         return (
             <div>
-                <h1>Meteorite landings across globe</h1>
+                <h1>WIP - Meteorite landings across globe</h1>
                 <br />
                 <MeteoriteGlobeComponent globeData={this.state.data} />
             </div>

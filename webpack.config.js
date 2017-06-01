@@ -40,14 +40,14 @@ const commonConfig = {
     entry: {
         apps: [
             './landing/app.js', 
-            // './camper-leaderboard/app.js', 
-            // './md-previewer/app.js', 
-            // './recipe-box/app.js', 
-            // './game-of-life/app.js', 
-            // './datavis-bargraph/app.js',
-            // './datavis-scatterplot/app.js',
-            // './datavis-heatmap/app.js',
-            // './datavis-forcedirectedgraph/app.js',
+            './camper-leaderboard/app.js', 
+            './md-previewer/app.js', 
+            './recipe-box/app.js', 
+            './game-of-life/app.js', 
+            './datavis-bargraph/app.js',
+            './datavis-scatterplot/app.js',
+            './datavis-heatmap/app.js',
+            './datavis-forcedirectedgraph/app.js',
             './datavis-globe/app.js',
         ],
         fx: [
