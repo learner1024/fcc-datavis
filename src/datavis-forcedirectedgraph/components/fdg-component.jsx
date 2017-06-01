@@ -38,7 +38,6 @@ class FDGComponent extends Component{
         let container = svg.append('g').attr('class', 'graph-container')
         let linesContainer = container.append('g').attr('class', 'lines-c')
         let flagsContainer = d3.select(thisNode).select('.fdg-flags');
-        //let namesContainer = container.append('g').attr('class', 'names-c')
         
         let forceSim = d3.forceSimulation()
             .force("link", d3.forceLink().id(d => d.index))
@@ -46,29 +45,6 @@ class FDGComponent extends Component{
             .force("center", d3.forceCenter(svgWidth / 2, svgHeight / 2))
             .force("y", d3.forceY(0))
             .force("x", d3.forceX(0));
-
-
-        // let names = namesContainer.selectAll('text')
-        //     .data(nodes)
-        //     .enter()
-        //     .append('text')
-        //         .attr('fill','teal')
-        //         .text(d => d.country)
-        //         .call(d3.drag()
-        //             .on("start", (d) => {
-        //                 if (!d3.event.active) forceSim.alphaTarget(0.3).restart();
-        //                 d.fx = d.x;
-        //                 d.fy = d.y;
-        //             })
-        //             .on("drag", (d) => {
-        //                 d.fx = d3.event.x;
-        //                 d.fy = d3.event.y;
-        //             })
-        //             .on("end", (d) => {
-        //                 if (!d3.event.active) forceSim.alphaTarget(0);
-        //                 delete d.fx;
-        //                 delete d.fy;
-        //             } ))
 
         let flags = flagsContainer.selectAll('div')
             .data(nodes)
@@ -90,10 +66,6 @@ class FDGComponent extends Component{
                         delete d.fx;
                         delete d.fy;
                     } ))
-                
-            
-                
-
         let lines = linesContainer.selectAll('line')
             .data(links)
             .enter()            
